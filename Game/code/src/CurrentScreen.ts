@@ -1,0 +1,5 @@
+class CurrentScreen {
+    public constructor() {
+        
+    }
+}
