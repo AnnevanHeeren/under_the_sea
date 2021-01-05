@@ -1,7 +1,11 @@
 /// <reference path="Obstacle.ts" />
 
-class Rock extends Obstacle{
-    public constructor() {
-        super();
+class Rock extends Obstacle {
+
+    public constructor(canvas: HTMLCanvasElement) {
+        super(canvas);
+        this.image = this.loadNewImage("assets/images/Rock.png");
+        this.points = 5;
+        //this.question = false;
     }
 }
