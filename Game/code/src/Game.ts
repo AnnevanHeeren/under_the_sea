@@ -3,7 +3,11 @@ class Game{
     // The canvas
     private canvas: HTMLCanvasElement;
 
-    public constructor() {
-        
+    public constructor(canvas: HTMLElement) {
+        this.canvas = <HTMLCanvasElement>canvas;
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
     }
+
+    
 }
