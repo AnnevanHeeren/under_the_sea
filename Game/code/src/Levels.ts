@@ -1,4 +1,4 @@
-abstract class level{
+abstract class Levels{
     private canvas: HTMLCanvasElement;
     private player: Player;
     private scoreToProgress: number;
