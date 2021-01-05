@@ -1,4 +1,4 @@
-class CurrentScreen {
+class View {
     public constructor() {
         
     }
