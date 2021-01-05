@@ -1,8 +1,14 @@
 body {
     overflow: hidden;
+
+    background-image: url("./../images/video0.gif");
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: cover;
     }
 
-canvas{
+canvas {
     margin: 0 auto;
     display: block;
 }
+
