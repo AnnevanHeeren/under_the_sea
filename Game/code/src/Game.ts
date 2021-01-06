@@ -14,7 +14,7 @@ class Game {
 
     // Score
     private totalScore: number;
-
+   
     // Current frame number
     private frameIndex: number;
     
