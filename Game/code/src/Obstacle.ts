@@ -1,15 +1,22 @@
 class Obstacle {
+    
+    // The canvas
     private canvas: HTMLCanvasElement;
 
+    // The 3 lanes the obstacles can spawn in
     private topLane: number;
     private middleLane: number;
     private bottomLane: number;
 
+    // An image of the object
     protected image: HTMLImageElement;
+    
+    // The starting X and Y positions of the object and the speed at which it travels
     private positionX: number;
     private positionY: number;
     private speed: number;
 
+    // The points an object is worth
     protected points: number;
 
     public constructor(canvas: HTMLCanvasElement) {
@@ -21,24 +28,24 @@ class Obstacle {
 
         const random = this.randomInteger(1, 3);
         if (random === 1) {
-            this.positionX = this.topLane;
+            this.positionY = this.topLane;
         }
         if (random === 2) {
-            this.positionX = this.middleLane;
+            this.positionY = this.middleLane;
         }
         if (random === 3) {
-            this.positionX = this.bottomLane;
+            this.positionY = this.bottomLane;
         }
 
-        this.positionY = 60;
+        this.positionX = 1500;
         this.speed = 5;
     }
 
     /**
-     * Moves the object down the screen according to the object's speed
+     * Moves the object to the left of the screen according to the object's speed
      */
     public move() {
-        this.positionY += this.speed;
+        this.positionY -= this.speed;
     }
 
     /**
@@ -49,56 +56,22 @@ class Obstacle {
         ctx.drawImage(
             this.image,
             // Center the image in the lane with the x coordinates
-            this.positionX - this.image.width / 2,
-            this.positionY
+            // TODO this is not right yet, figure out how to render them at the perfect spot
+            this.positionX - 500,
+            this.positionY - this.image.width / 2
         );
     }
 
     /**
-     * Returns true if the object collides with bottom of canvas. False if it
+     * Returns true if the object collides with the left side of the canvas. False if it
      * does not collide.
      */
     public collidesWithCanvasBottom(): boolean {
-        if (this.positionY + this.image.height > this.canvas.height) {
+        if (this.positionX + this.image.width < 0) {
             return true;
         }
 
         return false;
-    }
-
-    /**
-     * Returns the current position on x-axis
-     */
-    public getPositionX(): number {
-        return this.positionX;
-    }
-
-    /**
-     * Returns the current position on y-axis
-     */
-    public getPositionY(): number {
-        return this.positionY;
-    }
-
-    /**
-     * Returns the width of the object's image
-     */
-    public getImageWidth(): number {
-        return this.image.width;
-    }
-
-    /**
-     * Returns the height of the object's image
-     */
-    public getImageHeight(): number {
-        return this.image.height;
-    }
-
-    /**
-     * Return how much points the object is worth
-     */
-    public getPoints(): number {
-        return this.points;
     }
 
     /**

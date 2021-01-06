@@ -6,43 +6,28 @@ class Obstacle {
         this.bottomLane = this.canvas.height / 4 * 3;
         const random = this.randomInteger(1, 3);
         if (random === 1) {
-            this.positionX = this.topLane;
+            this.positionY = this.topLane;
         }
         if (random === 2) {
-            this.positionX = this.middleLane;
+            this.positionY = this.middleLane;
         }
         if (random === 3) {
-            this.positionX = this.bottomLane;
+            this.positionY = this.bottomLane;
         }
-        this.positionY = 60;
+        this.positionX = 1500;
         this.speed = 5;
     }
     move() {
-        this.positionY += this.speed;
+        this.positionY -= this.speed;
     }
     draw(ctx) {
-        ctx.drawImage(this.image, this.positionX - this.image.width / 2, this.positionY);
+        ctx.drawImage(this.image, this.positionX - 500, this.positionY - this.image.width / 2);
     }
     collidesWithCanvasBottom() {
-        if (this.positionY + this.image.height > this.canvas.height) {
+        if (this.positionX + this.image.width < 0) {
             return true;
         }
         return false;
-    }
-    getPositionX() {
-        return this.positionX;
-    }
-    getPositionY() {
-        return this.positionY;
-    }
-    getImageWidth() {
-        return this.image.width;
-    }
-    getImageHeight() {
-        return this.image.height;
-    }
-    getPoints() {
-        return this.points;
     }
     loadNewImage(source) {
         const img = new Image();
@@ -68,10 +53,13 @@ class Game {
             this.draw();
             requestAnimationFrame(this.step);
         };
+        this.drawScore = (ctx) => {
+            this.writeTextToCanvas(ctx, `Score: ${this.totalScore}`, 130, 50, 26, "black");
+        };
         this.canvas = canvas;
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
-        this.obstacles = [];
+        this.obstacles = [new Rock(this.canvas)];
         this.currentScreen = [];
         this.player = new Player(this.canvas);
         this.totalScore = 0;
@@ -82,8 +70,12 @@ class Game {
     draw() {
         const ctx = this.canvas.getContext('2d');
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.writeTextToCanvas(ctx, "Move up or down to move your character!", this.canvas.width / 2, 40, 44);
+        this.writeTextToCanvas(ctx, "Tip: win the game!", this.canvas.width / 2, 50, 24, "#985629");
+        this.drawScore(ctx);
         this.player.draw(ctx);
+        this.obstacles.forEach(obstacle => {
+            obstacle.draw(ctx);
+        });
     }
     writeTextToCanvas(ctx, text, xCoordinate, yCoordinate, fontSize = 20, color = "red", alignment = "center") {
         ctx.font = `${fontSize}px sans-serif`;
@@ -190,8 +182,6 @@ class Levels {
         }
     }
 }
-class Level3 extends Levels {
-}
 class Player {
     constructor(canvas) {
         this.move = () => {
@@ -213,7 +203,7 @@ class Player {
         this.middleLane = this.canvas.height / 2;
         this.bottomLane = this.canvas.height / 4 * 3;
         this.keyListener = new KeyListener;
-        this.image = this.loadNewImage("./assets/images/player.gif");
+        this.image = this.loadNewImage("./assets/images/playerMirrored.gif");
         this.positionY = this.canvas.height / 2;
     }
     loadNewImage(source) {

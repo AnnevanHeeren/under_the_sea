@@ -26,7 +26,7 @@ class Game {
         this.canvas.height = window.innerHeight;
 
         // Create obstacles
-        this.obstacles = [];
+        this.obstacles = [new Rock(this.canvas)];
 
         // TODO Create a function which fills this array with the obstacles we want
 
@@ -76,14 +76,26 @@ class Game {
         // Clear the entire canvas
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.writeTextToCanvas(ctx, "Move up or down to move your character!", this.canvas.width / 2, 40, 44);
+        this.writeTextToCanvas(ctx, "Tip: win the game!", this.canvas.width / 2, 50, 24, "#985629");
 
         // TODO create a method that draws the score to the screen
-        //this.drawScore(ctx);
+        this.drawScore(ctx);
 
         this.player.draw(ctx);
+
+        this.obstacles.forEach(obstacle => {
+            obstacle.draw(ctx);
+        });
     }
 
+    /**
+     * Draws the current score to the screen
+     * @param ctx 
+     */
+    private drawScore = (ctx: CanvasRenderingContext2D) => {
+        this.writeTextToCanvas(ctx, `Score: ${this.totalScore}`, 130, 50, 26, "black");
+    }
+    
     /**
     * Writes text to the canvas
     * @param {string} text - Text to write
