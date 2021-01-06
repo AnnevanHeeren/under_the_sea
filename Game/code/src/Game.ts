@@ -64,6 +64,14 @@ class Game {
 
         this.obstacles.forEach(obstacle => {
             obstacle.move();
+
+            if (this.player.collidesWith(obstacle)) {
+                this.totalScore += obstacle.getPoints();
+                this.removeItemFromScoringObjects(obstacle);
+            } else if (obstacle.collidesWithLeftSideCanvas()) {
+                this.removeItemFromScoringObjects(obstacle);
+            }
+
         });
         
         this.draw();
@@ -153,5 +161,15 @@ class Game {
         ctx.fillStyle = color;
         ctx.textAlign = alignment;
         ctx.fillText(text, xCoordinate, yCoordinate);
+    }
+
+    /**
+     * Removes an item from the this.obstacles array.
+     * Could also be written using a filter
+     * @param item To be removed
+     */
+    private removeItemFromScoringObjects(item: Obstacle): void {
+        const index = this.obstacles.indexOf(item);
+        this.obstacles.splice(index, 1);
     }
 }

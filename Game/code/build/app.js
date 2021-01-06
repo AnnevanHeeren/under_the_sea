@@ -1,5 +1,20 @@
 class Obstacle {
     constructor(canvas) {
+        this.getPositionX = () => {
+            return this.positionX;
+        };
+        this.getPositionY = () => {
+            return this.positionY;
+        };
+        this.getImageHeight = () => {
+            return this.image.height;
+        };
+        this.getImageWidth = () => {
+            return this.image.width;
+        };
+        this.getPoints = () => {
+            return this.points;
+        };
         this.canvas = canvas;
         this.topLane = this.canvas.height / 4;
         this.middleLane = this.canvas.height / 2;
@@ -42,7 +57,7 @@ class Fish extends Obstacle {
     constructor(canvas) {
         super(canvas);
         this.image = this.loadNewImage("assets/images/resizedFish.png");
-        this.points = 5;
+        this.points = 10;
     }
 }
 class Game {
@@ -55,6 +70,13 @@ class Game {
             this.player.move();
             this.obstacles.forEach(obstacle => {
                 obstacle.move();
+                if (this.player.collidesWith(obstacle)) {
+                    this.totalScore += obstacle.getPoints();
+                    this.removeItemFromScoringObjects(obstacle);
+                }
+                else if (obstacle.collidesWithLeftSideCanvas()) {
+                    this.removeItemFromScoringObjects(obstacle);
+                }
             });
             this.draw();
             requestAnimationFrame(this.step);
@@ -106,6 +128,10 @@ class Game {
         ctx.fillStyle = color;
         ctx.textAlign = alignment;
         ctx.fillText(text, xCoordinate, yCoordinate);
+    }
+    removeItemFromScoringObjects(item) {
+        const index = this.obstacles.indexOf(item);
+        this.obstacles.splice(index, 1);
     }
 }
 class Jellyfish extends Obstacle {
@@ -229,6 +255,16 @@ class Player {
         this.keyListener = new KeyListener;
         this.image = this.loadNewImage("./assets/images/playerMirrored.gif");
         this.positionY = this.canvas.height / 2;
+        this.positionX = this.canvas.width - 1500;
+    }
+    collidesWith(obstacle) {
+        if (this.positionX < obstacle.getPositionX() + obstacle.getImageWidth()
+            && this.positionX + this.image.width > obstacle.getPositionX()
+            && this.canvas.height - 200 < obstacle.getPositionY() + obstacle.getImageHeight()
+            && this.canvas.height - 200 + this.image.height > obstacle.getPositionY()) {
+            return true;
+        }
+        return false;
     }
     loadNewImage(source) {
         const img = new Image();
@@ -239,21 +275,21 @@ class Player {
 class Rock extends Obstacle {
     constructor(canvas) {
         super(canvas);
-        this.image = this.loadNewImage("assets/images/Rock.png");
+        this.image = this.loadNewImage("assets/images/resizedRock.png");
         this.points = 5;
     }
 }
 class Shark extends Obstacle {
     constructor(canvas) {
         super(canvas);
-        this.image = this.loadNewImage("assets/images/shark.png");
+        this.image = this.loadNewImage("assets/images/resizedShark.png");
         this.points = 0;
     }
 }
 class Spikes extends Obstacle {
     constructor(canvas) {
         super(canvas);
-        this.image = this.loadNewImage("assets/images/spikes.png");
+        this.image = this.loadNewImage("assets/images/resizedSpike.png");
         this.points = -2;
     }
 }

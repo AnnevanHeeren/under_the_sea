@@ -73,6 +73,26 @@ class Obstacle {
         return false;
     }
 
+    public getPositionX = () =>{
+        return this.positionX;
+    }
+
+    public getPositionY = () =>{
+        return this.positionY;
+    }
+
+    public getImageHeight = () =>{
+        return this.image.height;
+    }
+
+    public getImageWidth = () =>{
+        return this.image.width;
+    }
+
+    public getPoints = () =>{
+        return this.points;
+    }
+
     /**
     * Loads an image in such a way that the screen doesn't constantly flicker
     * @param {HTMLImageElement} source

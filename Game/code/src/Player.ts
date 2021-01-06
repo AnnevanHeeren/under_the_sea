@@ -16,6 +16,7 @@ class Player {
     
     // The position of the player on the canvas
     private positionY: number;
+    private positionX: number;
     
     // Not sure about these 3 properties yet!
     private hearts: number;
@@ -33,6 +34,7 @@ class Player {
         
         this.image = this.loadNewImage("./assets/images/playerMirrored.gif");
         this.positionY = this.canvas.height / 2;
+        this.positionX = this.canvas.width -1500;
     }
 
     /**
@@ -63,6 +65,22 @@ class Player {
             // Center the image in the lane with the y coordinates
             this.positionY - this.image.width / 2
         );
+    }
+
+    /**
+     * Collision detection of a scoring object and player
+     * Use bounding box detection method: https://computersciencewiki.org/index.php/Bounding_boxes
+     */
+    public collidesWith(obstacle: Obstacle): boolean {
+        if (this.positionX < obstacle.getPositionX() + obstacle.getImageWidth()
+            && this.positionX + this.image.width > obstacle.getPositionX()
+            && this.canvas.height - 200 < obstacle.getPositionY() + obstacle.getImageHeight()
+            && this.canvas.height - 200 + this.image.height > obstacle.getPositionY()
+        ) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
