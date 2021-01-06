@@ -59,8 +59,12 @@ class Game {
         this.frameIndex++;
 
         this.player.move();
+
+        this.obstacles.forEach(obstacle => {
+            obstacle.move();
+        });
         
-        this.draw()
+        this.draw();
         
         // Call this method again on the next animation frame
         // The user must hit F5 to reload the game
@@ -78,14 +82,13 @@ class Game {
 
         this.writeTextToCanvas(ctx, "Tip: win the game!", this.canvas.width / 2, 50, 24, "#985629");
 
-        // TODO create a method that draws the score to the screen
         this.drawScore(ctx);
 
         this.player.draw(ctx);
 
         this.obstacles.forEach(obstacle => {
             obstacle.draw(ctx);
-        });
+            });
     }
 
     /**

@@ -18,13 +18,13 @@ class Obstacle {
         this.speed = 5;
     }
     move() {
-        this.positionY -= this.speed;
+        this.positionX -= this.speed;
     }
     draw(ctx) {
-        ctx.drawImage(this.image, this.positionX - 500, this.positionY - this.image.width / 2);
+        ctx.drawImage(this.image, this.positionX - this.image.width, this.positionY - this.image.width / 2);
     }
-    collidesWithCanvasBottom() {
-        if (this.positionX + this.image.width < 0) {
+    collidesWithLeftSideCanvas() {
+        if (this.positionX < 0) {
             return true;
         }
         return false;
@@ -50,6 +50,9 @@ class Game {
         this.step = () => {
             this.frameIndex++;
             this.player.move();
+            this.obstacles.forEach(obstacle => {
+                obstacle.move();
+            });
             this.draw();
             requestAnimationFrame(this.step);
         };

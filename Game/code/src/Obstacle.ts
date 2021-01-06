@@ -45,7 +45,7 @@ class Obstacle {
      * Moves the object to the left of the screen according to the object's speed
      */
     public move() {
-        this.positionY -= this.speed;
+        this.positionX -= this.speed;
     }
 
     /**
@@ -56,8 +56,7 @@ class Obstacle {
         ctx.drawImage(
             this.image,
             // Center the image in the lane with the x coordinates
-            // TODO this is not right yet, figure out how to render them at the perfect spot
-            this.positionX - 500,
+            this.positionX - this.image.width,
             this.positionY - this.image.width / 2
         );
     }
@@ -66,8 +65,8 @@ class Obstacle {
      * Returns true if the object collides with the left side of the canvas. False if it
      * does not collide.
      */
-    public collidesWithCanvasBottom(): boolean {
-        if (this.positionX + this.image.width < 0) {
+    public collidesWithLeftSideCanvas(): boolean {
+        if (this.positionX < 0) {
             return true;
         }
 
