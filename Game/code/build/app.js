@@ -41,7 +41,7 @@ class Obstacle {
 class Fish extends Obstacle {
     constructor(canvas) {
         super(canvas);
-        this.image = this.loadNewImage("assets/images/fish.png");
+        this.image = this.loadNewImage("assets/images/resizedFish.png");
         this.points = 5;
     }
 }
