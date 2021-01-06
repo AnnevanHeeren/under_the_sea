@@ -58,8 +58,10 @@ class Game {
 
         this.frameIndex++;
 
+        this.player.move();
+        
         this.draw()
-        this.player.draw(this.ctx);
+        
         // Call this method again on the next animation frame
         // The user must hit F5 to reload the game
         requestAnimationFrame(this.step);

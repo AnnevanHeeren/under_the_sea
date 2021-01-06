@@ -64,8 +64,8 @@ class Game {
     constructor(canvas) {
         this.step = () => {
             this.frameIndex++;
+            this.player.move();
             this.draw();
-            this.player.draw(this.ctx);
             requestAnimationFrame(this.step);
         };
         this.canvas = canvas;
@@ -194,15 +194,27 @@ class Level3 extends Levels {
 }
 class Player {
     constructor(canvas) {
+        this.move = () => {
+            if (this.keyListener.isKeyDown(KeyListener.KEY_UP) && this.positionY !== this.topLane) {
+                this.positionY = this.topLane;
+            }
+            if (this.keyListener.isKeyDown(KeyListener.KEY_LEFT) && this.positionY !== this.middleLane) {
+                this.positionY = this.middleLane;
+            }
+            if (this.keyListener.isKeyDown(KeyListener.KEY_DOWN) && this.positionY !== this.bottomLane) {
+                this.positionY = this.bottomLane;
+            }
+        };
+        this.draw = (ctx) => {
+            ctx.drawImage(this.image, this.canvas.width - 1500, this.positionY - this.image.width / 2);
+        };
         this.canvas = canvas;
-        this.hearts = 3;
-        this.score = 0;
-        this.bubble = 100;
+        this.topLane = this.canvas.height / 4;
+        this.middleLane = this.canvas.height / 2;
+        this.bottomLane = this.canvas.height / 4 * 3;
+        this.keyListener = new KeyListener;
         this.image = this.loadNewImage("./assets/images/player.gif");
         this.positionY = this.canvas.height / 2;
-    }
-    draw(ctx) {
-        ctx.drawImage(this.image, this.positionY - this.image.width / 2, this.canvas.height - 150);
     }
     loadNewImage(source) {
         const img = new Image();
