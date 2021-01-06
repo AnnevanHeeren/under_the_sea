@@ -49,6 +49,9 @@ class Game {
     constructor(canvas) {
         this.step = () => {
             this.frameIndex++;
+            if (this.frameIndex % 100 === 0) {
+                this.createObstacle();
+            }
             this.player.move();
             this.obstacles.forEach(obstacle => {
                 obstacle.move();
@@ -59,10 +62,25 @@ class Game {
         this.drawScore = (ctx) => {
             this.writeTextToCanvas(ctx, `Score: ${this.totalScore}`, 130, 50, 26, "black");
         };
+        this.createObstacle = () => {
+            const random = this.randomInteger(1, 4);
+            if (random === 1) {
+                this.obstacles.push(new Spikes(this.canvas));
+            }
+            if (random === 2) {
+                this.obstacles.push(new Rock(this.canvas));
+            }
+            if (random === 3) {
+                this.obstacles.push(new Shark(this.canvas));
+            }
+            if (random === 4) {
+                this.obstacles.push(new Fish(this.canvas));
+            }
+        };
         this.canvas = canvas;
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
-        this.obstacles = [new Rock(this.canvas)];
+        this.obstacles = [];
         this.currentScreen = [];
         this.player = new Player(this.canvas);
         this.totalScore = 0;
@@ -79,6 +97,9 @@ class Game {
         this.obstacles.forEach(obstacle => {
             obstacle.draw(ctx);
         });
+    }
+    randomInteger(min, max) {
+        return Math.round(Math.random() * (max - min) + min);
     }
     writeTextToCanvas(ctx, text, xCoordinate, yCoordinate, fontSize = 20, color = "red", alignment = "center") {
         ctx.font = `${fontSize}px sans-serif`;

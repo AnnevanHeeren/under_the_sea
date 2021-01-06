@@ -17,8 +17,6 @@ class Game {
 
     // Current frame number
     private frameIndex: number;
-
-    private ctx: CanvasRenderingContext2D;
     
     public constructor(canvas: HTMLElement) {
         this.canvas = <HTMLCanvasElement>canvas;
@@ -26,7 +24,7 @@ class Game {
         this.canvas.height = window.innerHeight;
 
         // Create obstacles
-        this.obstacles = [new Rock(this.canvas)];
+        this.obstacles = [];
 
         // TODO Create a function which fills this array with the obstacles we want
 
@@ -57,6 +55,10 @@ class Game {
     step = () => {
 
         this.frameIndex++;
+
+        if(this.frameIndex % 100 === 0){
+            this.createObstacle();
+        }
 
         this.player.move();
 
@@ -97,6 +99,36 @@ class Game {
      */
     private drawScore = (ctx: CanvasRenderingContext2D) => {
         this.writeTextToCanvas(ctx, `Score: ${this.totalScore}`, 130, 50, 26, "black");
+    }
+
+    private createObstacle = () => {
+        const random = this.randomInteger(1, 4);
+
+        if (random === 1) {
+            this.obstacles.push(new Spikes(this.canvas));
+        }
+
+        if (random === 2) {
+            this.obstacles.push(new Rock(this.canvas));
+        }
+
+        if (random === 3) {
+            this.obstacles.push(new Shark(this.canvas));
+        }
+
+        if (random === 4) {
+            this.obstacles.push(new Fish(this.canvas));
+        }
+    }
+
+    /**
+    * Generates a random integer number between min and max
+    *
+    * @param {number} min - minimal time
+    * @param {number} max - maximal time
+    */
+    private randomInteger(min: number, max: number): number {
+    return Math.round(Math.random() * (max - min) + min);
     }
     
     /**
