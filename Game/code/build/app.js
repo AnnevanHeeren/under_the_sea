@@ -260,8 +260,8 @@ class Player {
     collidesWith(obstacle) {
         if (this.positionX < obstacle.getPositionX() + obstacle.getImageWidth()
             && this.positionX + this.image.width > obstacle.getPositionX()
-            && this.canvas.height - 200 < obstacle.getPositionY() + obstacle.getImageHeight()
-            && this.canvas.height - 200 + this.image.height > obstacle.getPositionY()) {
+            && this.positionY < obstacle.getPositionY() + obstacle.getImageHeight()
+            && this.positionY + this.image.height > obstacle.getPositionY()) {
             return true;
         }
         return false;
