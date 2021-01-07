@@ -253,7 +253,7 @@ class Player {
         this.middleLane = this.canvas.height / 2;
         this.bottomLane = this.canvas.height / 4 * 3;
         this.keyListener = new KeyListener;
-        this.image = this.loadNewImage("./assets/images/playerMirrored.gif");
+        this.image = this.loadNewImage("./assets/images/smallerPlayer.gif");
         this.positionY = this.canvas.height / 2;
         this.positionX = this.canvas.width - 1500;
     }

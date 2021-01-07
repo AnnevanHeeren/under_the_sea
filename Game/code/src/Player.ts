@@ -32,7 +32,7 @@ class Player {
         
         this.keyListener = new KeyListener;
         
-        this.image = this.loadNewImage("./assets/images/playerMirrored.gif");
+        this.image = this.loadNewImage("./assets/images/smallerPlayer.gif");
         this.positionY = this.canvas.height / 2;
         this.positionX = this.canvas.width -1500;
     }
