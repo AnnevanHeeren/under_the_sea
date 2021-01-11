@@ -276,7 +276,7 @@ class Rock extends Obstacle {
     constructor(canvas) {
         super(canvas);
         this.image = this.loadNewImage("assets/images/resizedRock.png");
-        this.points = 5;
+        this.points = -5;
     }
 }
 class Shark extends Obstacle {
