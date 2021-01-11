@@ -16,6 +16,9 @@ class Obstacle {
     private positionY: number;
     private speed: number;
 
+    // The name of the obstacle
+    protected name: string;
+    
     // The points an object is worth
     protected points: number;
 
@@ -73,24 +76,28 @@ class Obstacle {
         return false;
     }
 
-    public getPositionX = () =>{
+    public getPositionX = () => {
         return this.positionX;
     }
 
-    public getPositionY = () =>{
+    public getPositionY = () => {
         return this.positionY;
     }
 
-    public getImageHeight = () =>{
+    public getImageHeight = () => {
         return this.image.height;
     }
 
-    public getImageWidth = () =>{
+    public getImageWidth = () => {
         return this.image.width;
     }
 
-    public getPoints = () =>{
+    public getPoints = () => {
         return this.points;
+    }
+
+    public getName = () => {
+        return this.name;
     }
 
     /**

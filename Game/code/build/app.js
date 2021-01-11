@@ -15,6 +15,9 @@ class Obstacle {
         this.getPoints = () => {
             return this.points;
         };
+        this.getName = () => {
+            return this.name;
+        };
         this.canvas = canvas;
         this.topLane = this.canvas.height / 4;
         this.middleLane = this.canvas.height / 2;
@@ -58,6 +61,7 @@ class Fish extends Obstacle {
         super(canvas);
         this.image = this.loadNewImage("assets/images/resizedFish.png");
         this.points = 10;
+        this.name = "fish";
     }
 }
 class Game {
@@ -70,6 +74,7 @@ class Game {
             this.player.move();
             this.obstacles.forEach(obstacle => {
                 obstacle.move();
+                console.log(obstacle.getName());
                 if (this.player.collidesWith(obstacle)) {
                     this.totalScore += obstacle.getPoints();
                     this.removeItemFromScoringObjects(obstacle);
@@ -277,6 +282,7 @@ class Rock extends Obstacle {
         super(canvas);
         this.image = this.loadNewImage("assets/images/resizedRock.png");
         this.points = -5;
+        this.name = "rock";
     }
 }
 class Shark extends Obstacle {
@@ -284,6 +290,10 @@ class Shark extends Obstacle {
         super(canvas);
         this.image = this.loadNewImage("assets/images/resizedShark.png");
         this.points = 0;
+        this.name = "shark";
+    }
+    showQuestion() {
+        prompt("This is a test");
     }
 }
 class Spikes extends Obstacle {
@@ -291,6 +301,7 @@ class Spikes extends Obstacle {
         super(canvas);
         this.image = this.loadNewImage("assets/images/resizedSpike.png");
         this.points = -2;
+        this.name = "spikes";
     }
 }
 class View {

@@ -6,6 +6,7 @@ class Spikes extends Obstacle {
         super(canvas);
         this.image = this.loadNewImage("assets/images/resizedSpike.png");
         this.points = -2;
+        this.name = "spikes";
         //this.question = false;
     }
 }

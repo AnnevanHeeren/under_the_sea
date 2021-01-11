@@ -64,6 +64,7 @@ class Game {
 
         this.obstacles.forEach(obstacle => {
             obstacle.move();
+            console.log(obstacle.getName());
 
             if (this.player.collidesWith(obstacle)) {
                 this.totalScore += obstacle.getPoints();
