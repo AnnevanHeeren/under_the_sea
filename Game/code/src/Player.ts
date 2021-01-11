@@ -75,7 +75,8 @@ class Player {
         if (this.positionX < obstacle.getPositionX() + obstacle.getImageWidth()
             && this.positionX + this.image.width > obstacle.getPositionX() 
             && this.positionY < obstacle.getPositionY() + obstacle.getImageHeight()
-            && this.positionY + this.image.height > obstacle.getPositionY()) {
+            && this.positionY + this.image.height > obstacle.getPositionY()
+            ) {
             return true;
         }
 
