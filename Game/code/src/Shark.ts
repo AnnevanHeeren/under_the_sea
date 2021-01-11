@@ -4,7 +4,7 @@ class Shark extends Obstacle {
 
     public constructor(canvas: HTMLCanvasElement) {
         super(canvas);
-        this.image = this.loadNewImage("assets/images/resizedShark.png");
+        this.image = this.loadNewImage("assets/images/flippedresizedShark.png");
         this.points = 0;
         //this.question = true;
     }
