@@ -32,7 +32,7 @@ class Player {
         
         this.keyListener = new KeyListener;
         
-        this.image = this.loadNewImage("./assets/images/135height.gif");
+        this.image = this.loadNewImage("./assets/images/goodPlayer.gif");
         this.positionY = this.canvas.height / 2;
         this.positionX = this.canvas.width -1500;
     }

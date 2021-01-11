@@ -59,7 +59,7 @@ class Obstacle {
 class Fish extends Obstacle {
     constructor(canvas) {
         super(canvas);
-        this.image = this.loadNewImage("assets/images/resizedFish.png");
+        this.image = this.loadNewImage("assets/images/goodFish.png");
         this.points = 10;
         this.name = "fish";
     }
@@ -68,13 +68,13 @@ class Game {
     constructor(canvas) {
         this.step = () => {
             this.frameIndex++;
-            if (this.frameIndex % 100 === 0) {
+            if (this.frameIndex % 100 === 0 && this.totalScore >= 0) {
                 this.createObstacle();
             }
+            this.draw();
             this.player.move();
             this.obstacles.forEach(obstacle => {
                 obstacle.move();
-                console.log(obstacle.getName());
                 if (this.player.collidesWith(obstacle)) {
                     this.totalScore += obstacle.getPoints();
                     this.removeItemFromScoringObjects(obstacle);
@@ -83,7 +83,7 @@ class Game {
                     this.removeItemFromScoringObjects(obstacle);
                 }
             });
-            this.draw();
+            console.log(this.totalScore);
             requestAnimationFrame(this.step);
         };
         this.drawScore = (ctx) => {
@@ -110,20 +110,31 @@ class Game {
         this.obstacles = [];
         this.currentScreen = [];
         this.player = new Player(this.canvas);
-        this.totalScore = 0;
+        this.totalScore = -1;
         this.frameIndex = 0;
+        this.keyListener = new KeyListener;
+        this.playing = "titlescreen";
         console.log("Started the animation");
         requestAnimationFrame(this.step);
     }
     draw() {
         const ctx = this.canvas.getContext('2d');
-        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.writeTextToCanvas(ctx, "Tip: win the game!", this.canvas.width / 2, 50, 24, "#985629");
-        this.drawScore(ctx);
-        this.player.draw(ctx);
-        this.obstacles.forEach(obstacle => {
-            obstacle.draw(ctx);
-        });
+        if (this.totalScore >= 0) {
+            ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.writeTextToCanvas(ctx, "Tip: win the game!", this.canvas.width / 2, 50, 24, "#985629");
+            this.drawScore(ctx);
+            this.player.draw(ctx);
+            this.obstacles.forEach(obstacle => {
+                obstacle.draw(ctx);
+            });
+        }
+        else {
+            ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.writeTextToCanvas(ctx, "Game Over!", this.canvas.width / 2, 50, 24, "#985629");
+            this.writeTextToCanvas(ctx, "Your total score went below 0!", this.canvas.width / 2, this.canvas.height / 6, 24, "#985629");
+            ctx.drawImage(this.loadNewImage("assets/images/goodFish.png"), 100, 200);
+            this.writeTextToCanvas(ctx, "= +10 score", 280, 260, 24, "#985629");
+        }
     }
     randomInteger(min, max) {
         return Math.round(Math.random() * (max - min) + min);
@@ -137,6 +148,11 @@ class Game {
     removeItemFromScoringObjects(item) {
         const index = this.obstacles.indexOf(item);
         this.obstacles.splice(index, 1);
+    }
+    loadNewImage(source) {
+        const img = new Image();
+        img.src = source;
+        return img;
     }
 }
 class Jellyfish extends Obstacle {
@@ -258,7 +274,7 @@ class Player {
         this.middleLane = this.canvas.height / 2;
         this.bottomLane = this.canvas.height / 4 * 3;
         this.keyListener = new KeyListener;
-        this.image = this.loadNewImage("./assets/images/135height.gif");
+        this.image = this.loadNewImage("./assets/images/goodPlayer.gif");
         this.positionY = this.canvas.height / 2;
         this.positionX = this.canvas.width - 1500;
     }
@@ -288,7 +304,7 @@ class Rock extends Obstacle {
 class Shark extends Obstacle {
     constructor(canvas) {
         super(canvas);
-        this.image = this.loadNewImage("assets/images/resizedShark.png");
+        this.image = this.loadNewImage("assets/images/goodShark.png");
         this.points = 0;
         this.name = "shark";
     }

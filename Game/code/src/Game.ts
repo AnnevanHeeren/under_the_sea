@@ -1,23 +1,28 @@
 class Game {
-    
+
     // The canvas
     private canvas: HTMLCanvasElement;
-    
+
     // The player on the canvas
     private player: Player;
 
     // The screen which should be displayed
     private currentScreen: View[];
-    
+
     // The obstacles on the canvas (Does this need to be here or in Levels???)
     private obstacles: Obstacle[];
 
     // Score
     private totalScore: number;
-   
+
     // Current frame number
     private frameIndex: number;
-    
+
+    // Keylistener
+    private keyListener: KeyListener;
+
+    private playing: string;
+
     public constructor(canvas: HTMLElement) {
         this.canvas = <HTMLCanvasElement>canvas;
         this.canvas.width = window.innerWidth;
@@ -37,13 +42,17 @@ class Game {
         this.player = new Player(this.canvas);
 
         // Score is zero at the start
-        this.totalScore = 0;
+        this.totalScore = -1;
 
         // FrameIndex is also zero at the start
         this.frameIndex = 0;
 
+        this.keyListener = new KeyListener;
+        this.playing = "titlescreen";
+
         // Start the animation
         console.log("Started the animation");
+
         requestAnimationFrame(this.step);
     }
 
@@ -56,15 +65,15 @@ class Game {
 
         this.frameIndex++;
 
-        if(this.frameIndex % 100 === 0){
+        if (this.frameIndex % 100 === 0 && this.totalScore >= 0) {
             this.createObstacle();
         }
 
+        this.draw();
         this.player.move();
 
         this.obstacles.forEach(obstacle => {
             obstacle.move();
-            console.log(obstacle.getName());
 
             if (this.player.collidesWith(obstacle)) {
                 this.totalScore += obstacle.getPoints();
@@ -74,33 +83,49 @@ class Game {
             }
 
         });
-        
-        this.draw();
-        
-        // Call this method again on the next animation frame
+
+        console.log(this.totalScore);
+
         // The user must hit F5 to reload the game
         requestAnimationFrame(this.step);
     }
-
+    
     /**
      * Render the items on the canvas
      */
     private draw() {
+        
         // Get the canvas rendering context
         const ctx = this.canvas.getContext('2d');
-        // Clear the entire canvas
-        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.writeTextToCanvas(ctx, "Tip: win the game!", this.canvas.width / 2, 50, 24, "#985629");
+        if (this.totalScore >= 0) {
 
-        this.drawScore(ctx);
+            // Clear the entire canvas
+            ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.player.draw(ctx);
+            this.writeTextToCanvas(ctx, "Tip: win the game!", this.canvas.width / 2, 50, 24, "#985629");
 
-        this.obstacles.forEach(obstacle => {
-            obstacle.draw(ctx);
+            this.drawScore(ctx);
+
+            this.player.draw(ctx);
+
+            this.obstacles.forEach(obstacle => {
+                obstacle.draw(ctx);
             });
+        } else {
+            
+            ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+            this.writeTextToCanvas(ctx, "Game Over!", this.canvas.width / 2, 50, 24, "#985629");
+
+            this.writeTextToCanvas(ctx, "Your total score went below 0!", this.canvas.width / 2, this.canvas.height / 6, 24, "#985629");
+
+            ctx.drawImage(this.loadNewImage("assets/images/goodFish.png"), 100, 200);
+
+            this.writeTextToCanvas(ctx, "= +10 score", 280, 260, 24, "#985629")
+        }
     }
+
 
     /**
      * Draws the current score to the screen
@@ -137,9 +162,9 @@ class Game {
     * @param {number} max - maximal time
     */
     private randomInteger(min: number, max: number): number {
-    return Math.round(Math.random() * (max - min) + min);
+        return Math.round(Math.random() * (max - min) + min);
     }
-    
+
     /**
     * Writes text to the canvas
     * @param {string} text - Text to write
@@ -172,5 +197,16 @@ class Game {
     private removeItemFromScoringObjects(item: Obstacle): void {
         const index = this.obstacles.indexOf(item);
         this.obstacles.splice(index, 1);
+    }
+
+    /**
+    * Loads an image in such a way that the screen doesn't constantly flicker
+    * @param {HTMLImageElement} source
+    * @return HTMLImageElement - returns an image
+    */
+    private loadNewImage(source: string): HTMLImageElement {
+    const img = new Image();
+    img.src = source;
+    return img;
     }
 }
