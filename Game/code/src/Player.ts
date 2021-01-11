@@ -32,7 +32,7 @@ class Player {
         
         this.keyListener = new KeyListener;
         
-        this.image = this.loadNewImage("./assets/images/playerMirrored.gif");
+        this.image = this.loadNewImage("./assets/images/135height.gif");
         this.positionY = this.canvas.height / 2;
         this.positionX = this.canvas.width -1500;
     }
@@ -73,10 +73,9 @@ class Player {
      */
     public collidesWith(obstacle: Obstacle): boolean {
         if (this.positionX < obstacle.getPositionX() + obstacle.getImageWidth()
-            && this.positionX + this.image.width > obstacle.getPositionX()
-            && this.canvas.height - 200 < obstacle.getPositionY() + obstacle.getImageHeight()
-            && this.canvas.height - 200 + this.image.height > obstacle.getPositionY()
-        ) {
+            && this.positionX + this.image.width > obstacle.getPositionX() 
+            && this.positionY < obstacle.getPositionY() + obstacle.getImageHeight()
+            && this.positionY + this.image.height > obstacle.getPositionY()) {
             return true;
         }
 
