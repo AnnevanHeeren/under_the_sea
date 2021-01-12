@@ -86,6 +86,16 @@ class Game {
             console.log(this.totalScore);
             requestAnimationFrame(this.step);
         };
+        this.mouseHandler = (event) => {
+            console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
+            if (event.clientX >= 965 &&
+                event.clientX < 1285 + this.button.width &&
+                event.clientY >= 320 &&
+                event.clientY <= 420 + this.button.height) {
+                console.log("button clicked");
+                new Game(document.getElementById('canvas'));
+            }
+        };
         this.drawScore = (ctx) => {
             this.writeTextToCanvas(ctx, `Score: ${this.totalScore}`, 130, 50, 26, "black");
         };
@@ -107,13 +117,15 @@ class Game {
         this.canvas = canvas;
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
+        this.button = this.loadNewImage("assets/images/button.png");
         this.obstacles = [];
         this.currentScreen = [];
         this.player = new Player(this.canvas);
-        this.totalScore = -1;
+        this.totalScore = 0;
         this.frameIndex = 0;
         this.keyListener = new KeyListener;
         this.playing = "titlescreen";
+        document.addEventListener("click", this.mouseHandler);
         console.log("Started the animation");
         requestAnimationFrame(this.step);
     }

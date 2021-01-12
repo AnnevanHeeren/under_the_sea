@@ -23,10 +23,14 @@ class Game {
 
     private playing: string;
 
+    private button: HTMLImageElement;
+
     public constructor(canvas: HTMLElement) {
         this.canvas = <HTMLCanvasElement>canvas;
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
+
+        this.button = this.loadNewImage("assets/images/button.png");
 
         // Create obstacles
         this.obstacles = [];
@@ -42,13 +46,16 @@ class Game {
         this.player = new Player(this.canvas);
 
         // Score is zero at the start
-        this.totalScore = -1;
+        this.totalScore = 0;
 
         // FrameIndex is also zero at the start
         this.frameIndex = 0;
 
         this.keyListener = new KeyListener;
         this.playing = "titlescreen";
+
+        // add an mouse event
+        document.addEventListener("click", this.mouseHandler);
 
         // Start the animation
         console.log("Started the animation");
@@ -142,6 +149,23 @@ class Game {
         }
     }
 
+    /**
+     * Method to handle the mouse event
+     * @param {MouseEvent} event - mouse event
+     */
+    public mouseHandler = (event: MouseEvent) => {
+        console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
+
+        if (
+            event.clientX >= 965 &&
+            event.clientX < 1285 + this.button.width &&
+            event.clientY >= 320 &&
+            event.clientY <= 420 + this.button.height
+        ){
+            console.log("button clicked");
+            new Game(document.getElementById('canvas'));
+        }
+    }
 
     /**
      * Draws the current score to the screen
