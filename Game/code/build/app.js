@@ -130,10 +130,16 @@ class Game {
         }
         else {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.writeTextToCanvas(ctx, "Game Over!", this.canvas.width / 2, 50, 24, "#985629");
-            this.writeTextToCanvas(ctx, "Your total score went below 0!", this.canvas.width / 2, this.canvas.height / 6, 24, "#985629");
-            ctx.drawImage(this.loadNewImage("assets/images/goodFish.png"), 100, 200);
-            this.writeTextToCanvas(ctx, "= +10 score", 280, 260, 24, "#985629");
+            this.writeTextToCanvas(ctx, "Game Over!", this.canvas.width / 2, 80, 32, "#985629");
+            this.writeTextToCanvas(ctx, "Your total score went below 0!", this.canvas.width / 2, 160, 24, "#985629");
+            ctx.drawImage(this.loadNewImage("assets/images/goodFish.png"), 200, 200);
+            this.writeTextToCanvas(ctx, " +10 score", 380, 260, 24, "#985629");
+            ctx.drawImage(this.loadNewImage("assets/images/goodShark.png"), 200, 420);
+            this.writeTextToCanvas(ctx, "= Question!", 380, 480, 24, "#985629");
+            ctx.drawImage(this.loadNewImage("assets/images/resizedRock.png"), 600, 200);
+            this.writeTextToCanvas(ctx, " -5 score", 760, 260, 24, "#985629");
+            ctx.drawImage(this.loadNewImage("assets/images/resizedSpike.png"), 600, 420);
+            this.writeTextToCanvas(ctx, " -2 score", 760, 480, 24, "#985629");
         }
     }
     randomInteger(min, max) {
