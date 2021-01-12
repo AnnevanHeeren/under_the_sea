@@ -7,7 +7,7 @@ class Game {
     private player: Player;
 
     // The screen which should be displayed
-    private currentScreen: View[];
+    private view: View[];
 
     // The obstacles on the canvas (Does this need to be here or in Levels???)
     private obstacles: Obstacle[];
@@ -37,12 +37,14 @@ class Game {
         // Create obstacles
         this.obstacles = [];
 
-        // TODO Create a function which fills this array with the obstacles we want
-
         // The view that we need to display
-        this.currentScreen = [];
+        this.view = [];
 
         // TODO Somehow fill this array and make sure we show the right view when we need to.
+        this.view.push(new StartingView(this.canvas));
+        this.view.push(new PlayingView(this.canvas));
+        this.view.push(new QuestionView(this.canvas));
+        this.view.push(new GameoverView(this.canvas));
 
         // Set the player on the canvas (TODO: in the middle row)
         this.player = new Player(this.canvas);

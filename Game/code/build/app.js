@@ -119,7 +119,11 @@ class Game {
         this.canvas.height = window.innerHeight;
         this.button = this.loadNewImage("assets/images/button.png");
         this.obstacles = [];
-        this.currentScreen = [];
+        this.view = [];
+        this.view.push(new StartingView(this.canvas));
+        this.view.push(new PlayingView(this.canvas));
+        this.view.push(new QuestionView(this.canvas));
+        this.view.push(new GameoverView(this.canvas));
         this.player = new Player(this.canvas);
         this.totalScore = 0;
         this.frameIndex = 0;
