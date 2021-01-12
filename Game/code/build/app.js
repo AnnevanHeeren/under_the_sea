@@ -140,6 +140,8 @@ class Game {
             this.writeTextToCanvas(ctx, " -5 score", 760, 260, 24, "#985629");
             ctx.drawImage(this.loadNewImage("assets/images/resizedSpike.png"), 600, 420);
             this.writeTextToCanvas(ctx, " -2 score", 760, 480, 24, "#985629");
+            ctx.drawImage(this.loadNewImage("assets/images/button.png"), 950, 300);
+            this.writeTextToCanvas(ctx, " TRY AGAIN", 1128, 372, 24, "#3486B8");
         }
     }
     randomInteger(min, max) {
