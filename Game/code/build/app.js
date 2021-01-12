@@ -100,7 +100,7 @@ class Game {
             this.writeTextToCanvas(ctx, `Score: ${this.totalScore}`, 130, 50, 26, "black");
         };
         this.createObstacle = () => {
-            const random = this.randomInteger(1, 4);
+            const random = this.randomInteger(1, 5);
             if (random === 1) {
                 this.obstacles.push(new Spikes(this.canvas));
             }
@@ -111,6 +111,9 @@ class Game {
                 this.obstacles.push(new Shark(this.canvas));
             }
             if (random === 4) {
+                this.obstacles.push(new Fish(this.canvas));
+            }
+            if (random === 5) {
                 this.obstacles.push(new Fish(this.canvas));
             }
         };
@@ -125,6 +128,7 @@ class Game {
         this.frameIndex = 0;
         this.keyListener = new KeyListener;
         this.playing = "titlescreen";
+        this.timer = new Timer;
         document.addEventListener("click", this.mouseHandler);
         console.log("Started the animation");
         requestAnimationFrame(this.step);
@@ -136,25 +140,29 @@ class Game {
             this.writeTextToCanvas(ctx, "Tip: win the game!", this.canvas.width / 2, 50, 24, "#985629");
             this.drawScore(ctx);
             this.player.draw(ctx);
+            this.timer.draw(ctx);
             this.obstacles.forEach(obstacle => {
                 obstacle.draw(ctx);
             });
         }
         else {
-            ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.writeTextToCanvas(ctx, "Game Over!", this.canvas.width / 2, 80, 32, "#985629");
-            this.writeTextToCanvas(ctx, "Your total score went below 0!", this.canvas.width / 2, 160, 24, "#985629");
-            ctx.drawImage(this.loadNewImage("assets/images/goodFish.png"), 200, 200);
-            this.writeTextToCanvas(ctx, " +10 score", 380, 260, 24, "#985629");
-            ctx.drawImage(this.loadNewImage("assets/images/goodShark.png"), 200, 420);
-            this.writeTextToCanvas(ctx, "= Question!", 380, 480, 24, "#985629");
-            ctx.drawImage(this.loadNewImage("assets/images/resizedRock.png"), 600, 200);
-            this.writeTextToCanvas(ctx, " -5 score", 760, 260, 24, "#985629");
-            ctx.drawImage(this.loadNewImage("assets/images/rotatedspike.png"), 600, 420);
-            this.writeTextToCanvas(ctx, " -2 score", 760, 480, 24, "#985629");
-            ctx.drawImage(this.loadNewImage("assets/images/button.png"), 950, 300);
-            this.writeTextToCanvas(ctx, " TRY AGAIN", 1128, 372, 24, "#3486B8");
+            this.drawGameOver(ctx);
         }
+    }
+    drawGameOver(ctx) {
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.writeTextToCanvas(ctx, "Game Over!", this.canvas.width / 2, 80, 32, "#985629");
+        this.writeTextToCanvas(ctx, "Your total score went below 0!", this.canvas.width / 2, 160, 24, "#985629");
+        ctx.drawImage(this.loadNewImage("assets/images/goodFish.png"), 200, 200);
+        this.writeTextToCanvas(ctx, " +10 score", 380, 260, 24, "#985629");
+        ctx.drawImage(this.loadNewImage("assets/images/goodShark.png"), 200, 420);
+        this.writeTextToCanvas(ctx, "= Question!", 380, 480, 24, "#985629");
+        ctx.drawImage(this.loadNewImage("assets/images/resizedRock.png"), 600, 200);
+        this.writeTextToCanvas(ctx, " -5 score", 760, 260, 24, "#985629");
+        ctx.drawImage(this.loadNewImage("assets/images/rotatedspike.png"), 600, 420);
+        this.writeTextToCanvas(ctx, " -2 score", 760, 480, 24, "#985629");
+        ctx.drawImage(this.loadNewImage("assets/images/button.png"), 950, 300);
+        this.writeTextToCanvas(ctx, " TRY AGAIN", 1128, 372, 24, "#3486B8");
     }
     randomInteger(min, max) {
         return Math.round(Math.random() * (max - min) + min);
@@ -338,6 +346,28 @@ class Spikes extends Obstacle {
         this.image = this.loadNewImage("assets/images/rotatedspike.png");
         this.points = -2;
         this.name = "spikes";
+    }
+}
+class Timer {
+    constructor(counter = 1) {
+        this.counter = counter;
+        this.draw = (ctx) => {
+            if (this.counter === 1) {
+                this.writeTextToCanvas(ctx, `Time: ${this.counter} second`, 1200, 50, 26, "black");
+            }
+            if (this.counter > 1) {
+                this.writeTextToCanvas(ctx, `Time: ${this.counter} seconds`, 1200, 50, 26, "black");
+            }
+        };
+        let intervalId = setInterval(() => {
+            this.counter = this.counter + 1;
+        }, 1000);
+    }
+    writeTextToCanvas(ctx, text, xCoordinate, yCoordinate, fontSize = 20, color = "red", alignment = "center") {
+        ctx.font = `${fontSize}px sans-serif`;
+        ctx.fillStyle = color;
+        ctx.textAlign = alignment;
+        ctx.fillText(text, xCoordinate, yCoordinate);
     }
 }
 class View {
