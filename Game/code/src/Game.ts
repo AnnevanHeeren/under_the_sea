@@ -158,7 +158,7 @@ class Game {
     }
 
     private createObstacle = () => {
-        const random = this.randomInteger(1, 5);
+        const random = this.randomInteger(1, 4);
 
         if (random === 1) {
             this.obstacles.push(new Spikes(this.canvas));
@@ -173,10 +173,6 @@ class Game {
         }
 
         if (random === 4) {
-            this.obstacles.push(new Fish(this.canvas));
-        }
-
-        if (random === 5) {
             this.obstacles.push(new Fish(this.canvas));
         }
     }

@@ -100,7 +100,7 @@ class Game {
             this.writeTextToCanvas(ctx, `Score: ${this.totalScore}`, 130, 50, 26, "black");
         };
         this.createObstacle = () => {
-            const random = this.randomInteger(1, 5);
+            const random = this.randomInteger(1, 4);
             if (random === 1) {
                 this.obstacles.push(new Spikes(this.canvas));
             }
@@ -111,9 +111,6 @@ class Game {
                 this.obstacles.push(new Shark(this.canvas));
             }
             if (random === 4) {
-                this.obstacles.push(new Fish(this.canvas));
-            }
-            if (random === 5) {
                 this.obstacles.push(new Fish(this.canvas));
             }
         };
@@ -183,11 +180,18 @@ class Game {
         return img;
     }
 }
-class Jellyfish extends Obstacle {
+class View {
+    constructor(canvas) {
+        this.canvas = canvas;
+        this.keyListener = new KeyListener;
+    }
+    isDone() {
+        return true;
+    }
+}
+class GameoverView extends View {
     constructor(canvas) {
         super(canvas);
-        this.image = this.loadNewImage("assets/images/jellyfish.png");
-        this.points = 5;
     }
 }
 class KeyListener {
@@ -265,22 +269,6 @@ KeyListener.KEY_W = 87;
 KeyListener.KEY_X = 88;
 KeyListener.KEY_Y = 89;
 KeyListener.KEY_Z = 90;
-class Levels {
-    constructor(canvas, spawnRate) {
-        this.canvas = canvas;
-        this.score = 0;
-        this.spawnRate = spawnRate;
-        this.allQuestionsAnswered = false;
-    }
-    isCompleted() {
-        if (this.allQuestionsAnswered = true) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-}
 class Player {
     constructor(canvas) {
         this.move = () => {
@@ -321,6 +309,16 @@ class Player {
         return img;
     }
 }
+class PlayingView extends View {
+    constructor(canvas) {
+        super(canvas);
+    }
+}
+class QuestionView extends View {
+    constructor(canvas) {
+        super(canvas);
+    }
+}
 class Rock extends Obstacle {
     constructor(canvas) {
         super(canvas);
@@ -348,6 +346,11 @@ class Spikes extends Obstacle {
         this.name = "spikes";
     }
 }
+class StartingView extends View {
+    constructor(canvas) {
+        super(canvas);
+    }
+}
 class Timer {
     constructor(counter = 1) {
         this.counter = counter;
@@ -368,10 +371,6 @@ class Timer {
         ctx.fillStyle = color;
         ctx.textAlign = alignment;
         ctx.fillText(text, xCoordinate, yCoordinate);
-    }
-}
-class View {
-    constructor() {
     }
 }
 console.log("Javascript is working!");
