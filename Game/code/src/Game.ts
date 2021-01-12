@@ -139,7 +139,7 @@ class Game {
 
             this.writeTextToCanvas(ctx, " -5 score", 760, 260, 24, "#985629")
 
-            ctx.drawImage(this.loadNewImage("assets/images/resizedSpike.png"), 600, 420);
+            ctx.drawImage(this.loadNewImage("assets/images/rotatedspike.png"), 600, 420);
 
             this.writeTextToCanvas(ctx, " -2 score", 760, 480, 24, "#985629")
 

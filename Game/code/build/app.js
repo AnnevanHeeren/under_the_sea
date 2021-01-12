@@ -150,7 +150,7 @@ class Game {
             this.writeTextToCanvas(ctx, "= Question!", 380, 480, 24, "#985629");
             ctx.drawImage(this.loadNewImage("assets/images/resizedRock.png"), 600, 200);
             this.writeTextToCanvas(ctx, " -5 score", 760, 260, 24, "#985629");
-            ctx.drawImage(this.loadNewImage("assets/images/resizedSpike.png"), 600, 420);
+            ctx.drawImage(this.loadNewImage("assets/images/rotatedspike.png"), 600, 420);
             this.writeTextToCanvas(ctx, " -2 score", 760, 480, 24, "#985629");
             ctx.drawImage(this.loadNewImage("assets/images/button.png"), 950, 300);
             this.writeTextToCanvas(ctx, " TRY AGAIN", 1128, 372, 24, "#3486B8");
@@ -335,7 +335,7 @@ class Shark extends Obstacle {
 class Spikes extends Obstacle {
     constructor(canvas) {
         super(canvas);
-        this.image = this.loadNewImage("assets/images/resizedSpike.png");
+        this.image = this.loadNewImage("assets/images/rotatedspike.png");
         this.points = -2;
         this.name = "spikes";
     }
