@@ -34,7 +34,7 @@ class Player {
         
         this.image = this.loadNewImage("./assets/images/characterBubble.png");
         this.positionY = this.canvas.height / 2;
-        this.positionX = this.canvas.width -1500;
+        this.positionX = 36;
     }
 
     /**
@@ -61,7 +61,7 @@ class Player {
     public draw = (ctx: CanvasRenderingContext2D) => {
         ctx.drawImage(
             this.image,
-            this.canvas.width - 1500,
+            this.positionX,
             // Center the image in the lane with the y coordinates
             this.positionY - this.image.width / 2
         );
