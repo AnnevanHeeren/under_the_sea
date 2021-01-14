@@ -50,6 +50,8 @@ class PlayingView extends View {
         this.obstacles.forEach(obstacle => {
             obstacle.move();
 
+            //console.log(`${obstacle.getName()}`);
+
             if (this.player.collidesWith(obstacle)) {
                 this.totalScore += obstacle.getPoints();
                 this.removeItemFromScoringObjects(obstacle);
@@ -130,7 +132,20 @@ class PlayingView extends View {
         return Math.round(Math.random() * (max - min) + min);
     }
 
-    public isDone = ():boolean => {
+    public isDone = (): boolean => {
+        this.obstacles.forEach(obstacle => {
+            if (this.player.collidesWith(obstacle) && obstacle.getName() == "shark") {
+                console.log("caught shark");
+                return true;
+                
+            }
+            return false;
+        });
+
+        return false;
+    }
+
+    public isGameOver = (): boolean => {
         return this.totalScore < 0;
     }
 }

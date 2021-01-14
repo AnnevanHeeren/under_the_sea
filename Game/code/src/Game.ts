@@ -36,6 +36,12 @@ class Game {
 
         if (this.view[this.currentView].isDone()) {
             this.currentView++;
+            console.log("plus currentview")
+        }
+
+        if(this.view[this.currentView].isGameOver()) {
+            //console.log("game over");
+            this.currentView = 3;
         }
 
         this.draw();
@@ -52,7 +58,7 @@ class Game {
         // Get the canvas rendering context
         const ctx = this.canvas.getContext('2d');
 
-        console.log("drawing view");
+        //console.log("drawing view");
         this.view[this.currentView].draw(ctx);
     }
     

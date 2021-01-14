@@ -9,8 +9,4 @@ class Shark extends Obstacle {
         this.name = "shark";
         //this.question = true;
     }
-
-    private showQuestion() {
-        prompt("This is a test");
-    }
 }
