@@ -48,9 +48,6 @@ class PlayingView extends View {
         this.player.move();
 
         this.obstacles.forEach(obstacle => {
-            obstacle.move();
-
-            //console.log(`${obstacle.getName()}`);
 
             if (this.player.collidesWith(obstacle)) {
                 this.totalScore += obstacle.getPoints();
@@ -81,7 +78,12 @@ class PlayingView extends View {
             obstacle.draw(ctx);
         });
         
-        
+    }
+
+    public move = () => {
+        this.obstacles.forEach(obstacle => {
+            obstacle.move();
+        });
     }
 
     /**
@@ -137,13 +139,12 @@ class PlayingView extends View {
      */
     public isDone = (): boolean => {
         this.obstacles.forEach(obstacle => {
-            if (this.player.collidesWith(obstacle) === true) {
+            if (this.player.collidesWith(obstacle) === true && obstacle.getName() === "shark") {
                 console.log("caught shark");
                 return true; 
             }
             return false;
         });
-
         return false;
     }
 

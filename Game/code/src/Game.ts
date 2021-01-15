@@ -34,9 +34,11 @@ class Game {
      */
     step = () => {
 
+        this.move();
+
         if (this.view[this.currentView].isDone()) {
             this.currentView++;
-            console.log("plus currentview")
+            console.log("plus currentview");
         }
 
         if(this.view[this.currentView].isGameOver()) {
@@ -64,6 +66,14 @@ class Game {
 
         //console.log("drawing view");
         this.view[this.currentView].draw(ctx);
+    }
+
+
+    /**
+     * move
+     */
+    public move() {
+        this.view[this.currentView].move();
     }
     
     /**

@@ -27,6 +27,11 @@ abstract class View {
     public draw = (ctx: CanvasRenderingContext2D) => {}
 
     /**
+     * Empty so we can overwrite this with subclasses
+     */
+    public move = () => {}
+
+    /**
     * Loads an image in such a way that the screen doesn't constantly flicker
     * @param {HTMLImageElement} source
     * @return HTMLImageElement - returns an image

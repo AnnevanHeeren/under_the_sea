@@ -67,6 +67,7 @@ class Fish extends Obstacle {
 class Game {
     constructor(canvas) {
         this.step = () => {
+            this.move();
             if (this.view[this.currentView].isDone()) {
                 this.currentView++;
                 console.log("plus currentview");
@@ -95,6 +96,9 @@ class Game {
         const ctx = this.canvas.getContext('2d');
         this.view[this.currentView].draw(ctx);
     }
+    move() {
+        this.view[this.currentView].move();
+    }
     writeTextToCanvas(ctx, text, xCoordinate, yCoordinate, fontSize = 20, color = "red", alignment = "center") {
         ctx.font = `${fontSize}px sans-serif`;
         ctx.fillStyle = color;
@@ -119,6 +123,7 @@ class View {
             return false;
         };
         this.draw = (ctx) => { };
+        this.move = () => { };
         this.canvas = canvas;
         this.keyListener = new KeyListener;
     }
@@ -281,7 +286,6 @@ class PlayingView extends View {
             }
             this.player.move();
             this.obstacles.forEach(obstacle => {
-                obstacle.move();
                 if (this.player.collidesWith(obstacle)) {
                     this.totalScore += obstacle.getPoints();
                     this.removeItemFromScoringObjects(obstacle);
@@ -299,6 +303,11 @@ class PlayingView extends View {
             this.timer.draw(ctx);
             this.obstacles.forEach(obstacle => {
                 obstacle.draw(ctx);
+            });
+        };
+        this.move = () => {
+            this.obstacles.forEach(obstacle => {
+                obstacle.move();
             });
         };
         this.drawScore = (ctx) => {
@@ -321,7 +330,7 @@ class PlayingView extends View {
         };
         this.isDone = () => {
             this.obstacles.forEach(obstacle => {
-                if (this.player.collidesWith(obstacle) === true) {
+                if (this.player.collidesWith(obstacle) === true && obstacle.getName() === "shark") {
                     console.log("caught shark");
                     return true;
                 }
