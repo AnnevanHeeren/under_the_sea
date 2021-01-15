@@ -144,6 +144,8 @@ class GameoverView extends View {
             this.writeTextToCanvas(ctx, "Press the space button to try again", this.canvas.width / 2, 240, 24, "#985629");
             ctx.drawImage(this.loadNewImage("assets/images/fish.png"), 200, 200);
             ctx.drawImage(this.loadNewImage("assets/images/image.png"), 800, 250);
+            ctx.drawImage(this.loadNewImage("assets/images/seaweed(1).png"), 250, 560);
+            ctx.drawImage(this.loadNewImage("assets/images/goodFish.png"), 1100, 120);
         };
         this.reload = () => {
             if (this.keyListener.isKeyDown(KeyListener.KEY_SPACE)) {
