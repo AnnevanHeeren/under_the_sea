@@ -17,6 +17,10 @@ abstract class View {
         return false;
     }
 
+    public reload = (): boolean => {
+        return false;
+    }
+
     /**
      * Empty so we can overwrite this with subclasses
      */

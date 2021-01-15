@@ -2,9 +2,9 @@
 
 class StartingView extends View {
 
-    public button: HTMLImageElement;
+    private button: HTMLImageElement;
     
-    private buttonClicked: boolean;
+    private buttonClicked: number;
 
     public constructor(canvas: HTMLCanvasElement) {
         super(canvas);
@@ -13,7 +13,7 @@ class StartingView extends View {
         document.addEventListener("click", this.mouseHandler);
 
         this.button = this.loadNewImage("assets/images/button.png");
-        this.buttonClicked = false;
+        this.buttonClicked = 0;
     }
 
     public draw = (ctx : CanvasRenderingContext2D) => {
@@ -49,8 +49,8 @@ class StartingView extends View {
      * 
      */
     public isDone = (): boolean => {
-        if (this.mouseHandler()) {
-            
+        if (this.buttonClicked > 0) {
+            return true;
         }
         return false;
     }
@@ -61,7 +61,6 @@ class StartingView extends View {
     */
     public mouseHandler = (event: MouseEvent) => {
         console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
-
         if (
             event.clientX >= 965 &&
             event.clientX < 1285 + this.button.width &&
@@ -69,8 +68,7 @@ class StartingView extends View {
             event.clientY <= 420 + this.button.height
         ){
             console.log("clicked");
-            this.isDone() === true;
+            this.buttonClicked++;
         }
-
     }
 }

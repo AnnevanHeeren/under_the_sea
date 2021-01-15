@@ -11,4 +11,6 @@ class QuestionView extends View {
         this.writeTextToCanvas(ctx, "This is the question view, not the game over view!", this.canvas.width / 2, 80, 32, "#985629");
 
     }
+
+    
 }

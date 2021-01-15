@@ -7,10 +7,10 @@ class GameoverView extends View {
     public constructor(canvas: HTMLCanvasElement) {
         super(canvas);
 
-        // add an mouse event
+        // //add an mouse event
         // document.addEventListener("click", this.mouseHandler);
 
-        this.button = this.loadNewImage("assets/images/button.png");
+        // this.button = this.loadNewImage("assets/images/button.png");
 
     }
 
@@ -20,6 +20,21 @@ class GameoverView extends View {
         this.writeTextToCanvas(ctx, "Game Over!", this.canvas.width / 2, 80, 32, "#985629");
 
         this.writeTextToCanvas(ctx, "Your total score went below 0!", this.canvas.width / 2, 160, 24, "#985629");
+        this.writeTextToCanvas(ctx, "Press the space button to try again", this.canvas.width / 2, 240, 24, "#985629");
+
+        ctx.drawImage(this.loadNewImage("assets/images/fish.png"), 200, 200);
+        ctx.drawImage(this.loadNewImage("assets/images/shark.png"), 800, 250);
+    }
+
+    /**
+     * 
+     */
+    public reload = (): boolean => {
+        if (this.keyListener.isKeyDown(KeyListener.KEY_SPACE)) {
+            console.log("key space")
+            return true;
+        }
+        return false;
     }
 
     // /**
@@ -35,7 +50,7 @@ class GameoverView extends View {
     //         event.clientY >= 320 &&
     //         event.clientY <= 420 + this.button.height
     //     ){
-    //         console.log("button clicked");
+    //         console.log("button clicked gameOver");
     //         new Game(document.getElementById('canvas'));
     //     }
     // }

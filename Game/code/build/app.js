@@ -74,6 +74,9 @@ class Game {
             if (this.view[this.currentView].isGameOver()) {
                 this.currentView = 3;
             }
+            if (this.view[this.currentView].reload()) {
+                location.reload();
+            }
             this.draw();
             requestAnimationFrame(this.step);
         };
@@ -112,6 +115,9 @@ class View {
         this.isGameOver = () => {
             return false;
         };
+        this.reload = () => {
+            return false;
+        };
         this.draw = (ctx) => { };
         this.canvas = canvas;
         this.keyListener = new KeyListener;
@@ -135,8 +141,17 @@ class GameoverView extends View {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.writeTextToCanvas(ctx, "Game Over!", this.canvas.width / 2, 80, 32, "#985629");
             this.writeTextToCanvas(ctx, "Your total score went below 0!", this.canvas.width / 2, 160, 24, "#985629");
+            this.writeTextToCanvas(ctx, "Press the space button to try again", this.canvas.width / 2, 240, 24, "#985629");
+            ctx.drawImage(this.loadNewImage("assets/images/fish.png"), 200, 200);
+            ctx.drawImage(this.loadNewImage("assets/images/shark.png"), 800, 250);
         };
-        this.button = this.loadNewImage("assets/images/button.png");
+        this.reload = () => {
+            if (this.keyListener.isKeyDown(KeyListener.KEY_SPACE)) {
+                console.log("key space");
+                return true;
+            }
+            return false;
+        };
     }
 }
 class KeyListener {
@@ -304,7 +319,7 @@ class PlayingView extends View {
         };
         this.isDone = () => {
             this.obstacles.forEach(obstacle => {
-                if (this.player.collidesWith(obstacle) && obstacle.getName() == "shark") {
+                if (this.player.collidesWith(obstacle) === true) {
                     console.log("caught shark");
                     return true;
                 }
@@ -381,7 +396,8 @@ class StartingView extends View {
             ctx.drawImage(this.loadNewImage("assets/images/player.gif"), 1250, 350);
         };
         this.isDone = () => {
-            if (this.mouseHandler) {
+            if (this.buttonClicked > 0) {
+                return true;
             }
             return false;
         };
@@ -392,12 +408,12 @@ class StartingView extends View {
                 event.clientY >= 320 &&
                 event.clientY <= 420 + this.button.height) {
                 console.log("clicked");
-                this.isDone() === true;
+                this.buttonClicked++;
             }
         };
         document.addEventListener("click", this.mouseHandler);
         this.button = this.loadNewImage("assets/images/button.png");
-        this.buttonClicked = false;
+        this.buttonClicked = 0;
     }
 }
 class Timer {

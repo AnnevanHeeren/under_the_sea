@@ -132,12 +132,14 @@ class PlayingView extends View {
         return Math.round(Math.random() * (max - min) + min);
     }
 
+    /**
+     * 
+     */
     public isDone = (): boolean => {
         this.obstacles.forEach(obstacle => {
-            if (this.player.collidesWith(obstacle) && obstacle.getName() == "shark") {
+            if (this.player.collidesWith(obstacle) === true) {
                 console.log("caught shark");
-                return true;
-                
+                return true; 
             }
             return false;
         });
