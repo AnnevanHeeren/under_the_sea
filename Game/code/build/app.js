@@ -79,6 +79,9 @@ class Game {
             if (this.view[this.currentView].reload()) {
                 location.reload();
             }
+            if (this.view[this.currentView].buttonAnswer()) {
+                this.currentView = 1;
+            }
             this.draw();
             requestAnimationFrame(this.step);
         };
@@ -125,6 +128,12 @@ class View {
         };
         this.reload = () => {
             return false;
+        };
+        this.buttonAnswer = () => {
+            return false;
+        };
+        this.answerCheck = () => {
+            return "false";
         };
         this.draw = (ctx) => { };
         this.move = () => { };
@@ -344,6 +353,7 @@ class PlayingView extends View {
         };
         this.isDone = () => {
             if (this.collisionWithShark === "yes") {
+                this.collisionWithShark = "";
                 return true;
             }
             return false;
@@ -371,8 +381,58 @@ class QuestionView extends View {
         super(canvas);
         this.draw = (ctx) => {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.writeTextToCanvas(ctx, "This is the question view, not the game over view!", this.canvas.width / 2, 80, 32, "#985629");
+            this.writeTextToCanvas(ctx, `${this.question}`, this.canvas.width / 2, 110, 32, "#985629");
+            this.writeTextToCanvas(ctx, `${this.question2}`, this.canvas.width / 2, 150, 32, "#985629");
+            this.writeTextToCanvas(ctx, "YES", (this.canvas.width / 4) * 1.45, 370, 32, "#985629");
+            this.writeTextToCanvas(ctx, "NO", (this.canvas.width / 4) * 2.45, 370, 32, "#985629");
         };
+        this.answerCheck = () => {
+            if (this.answer === this.playerAnswer) {
+                console.log("player answer correct");
+                return "true";
+            }
+            else if (this.answer !== this.playerAnswer) {
+                console.log("player answer incorrect");
+                return "false";
+            }
+            return "false";
+        };
+        this.buttonAnswer = () => {
+            if (this.keyListener.isKeyDown(KeyListener.KEY_Y)) {
+                console.log("key Y");
+                this.playerAnswer = "Yes";
+                if (this.answerCheck() === "true") {
+                    return true;
+                }
+            }
+            else if (this.keyListener.isKeyDown(KeyListener.KEY_N))
+                console.log("key N");
+            this.playerAnswer = "No";
+            if (this.answerCheck() !== "true") {
+                return false;
+            }
+            return false;
+        };
+        this.question = "";
+        this.question2 = "";
+        this.playerAnswer = "";
+        this.createQuestion();
+    }
+    createQuestion() {
+        const random = this.randomInteger(1, 1);
+        if (random === 1) {
+            this.question = "Hi! Would you like to make the level easier? If so I can do this for you!";
+            this.question2 = "I just need your full name and birthday! Will you do that for me?";
+            this.answer = "No";
+        }
+        if (random === 2) {
+            this.question = "Helo Im donald trump";
+            this.question2 = "";
+            this.answer = "Yes";
+        }
+    }
+    randomInteger(min, max) {
+        return Math.round(Math.random() * (max - min) + min);
     }
 }
 class Rock extends Obstacle {

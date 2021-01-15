@@ -39,21 +39,4 @@ class GameoverView extends View {
         return false;
     }
 
-    // /**
-    //  * Method to handle the mouse event
-    //  * @param {MouseEvent} event - mouse event
-    //  */
-    // public mouseHandler = (event: MouseEvent) => {
-    //     console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
-
-    //     if (
-    //         event.clientX >= 965 &&
-    //         event.clientX < 1285 + this.button.width &&
-    //         event.clientY >= 320 &&
-    //         event.clientY <= 420 + this.button.height
-    //     ){
-    //         console.log("button clicked gameOver");
-    //         new Game(document.getElementById('canvas'));
-    //     }
-    // }
 }

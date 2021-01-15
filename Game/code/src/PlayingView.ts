@@ -155,6 +155,7 @@ class PlayingView extends View {
      */
     public isDone = (): boolean => {
         if (this.collisionWithShark === "yes") {
+            this.collisionWithShark = "";
             return true;
         }
         return false;

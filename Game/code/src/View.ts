@@ -25,6 +25,14 @@ abstract class View {
         return false;
     }
 
+    public buttonAnswer = (): boolean => {
+        return false;
+    }
+
+    public answerCheck = () => {
+       return "false";
+    }
+
     /**
      * Empty so we can overwrite this with subclasses
      */
@@ -62,7 +70,7 @@ abstract class View {
         yCoordinate: number,
         fontSize: number = 20,
         color: string = "red",
-        alignment: CanvasTextAlign = "center"
+        alignment: CanvasTextAlign = "center",
     ) {
         ctx.font = `${fontSize}px consolas`;
         ctx.fillStyle = color;

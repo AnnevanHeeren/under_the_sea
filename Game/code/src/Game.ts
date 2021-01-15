@@ -41,6 +41,7 @@ class Game {
         if (this.view[this.currentView].isDone()) {
             this.currentView++;
             console.log("plus currentview");
+        
         }
 
         if(this.view[this.currentView].isGameOver()) {
@@ -50,6 +51,10 @@ class Game {
 
         if (this.view[this.currentView].reload()) {
             location.reload();
+        }
+
+        if(this.view[this.currentView].buttonAnswer()) {
+            this.currentView = 1;
         }
 
         this.draw();
