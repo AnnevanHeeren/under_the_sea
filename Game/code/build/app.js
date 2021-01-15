@@ -68,6 +68,7 @@ class Game {
     constructor(canvas) {
         this.step = () => {
             this.move();
+            this.view[this.currentView].isDone2();
             if (this.view[this.currentView].isDone()) {
                 this.currentView++;
                 console.log("plus currentview");
@@ -114,6 +115,9 @@ class Game {
 class View {
     constructor(canvas) {
         this.isDone = () => {
+            return false;
+        };
+        this.isDone2 = () => {
             return false;
         };
         this.isGameOver = () => {
@@ -328,14 +332,20 @@ class PlayingView extends View {
                 this.obstacles.push(new Fish(this.canvas));
             }
         };
-        this.isDone = () => {
-            this.obstacles.forEach(obstacle => {
-                if (this.player.collidesWith(obstacle) === true && obstacle.getName() === "shark") {
+        this.isDone2 = () => {
+            this.obstacles.some(obstacle => {
+                if (this.player.collidesWith(obstacle) && obstacle.getName() === "shark") {
                     console.log("caught shark");
-                    return true;
+                    this.test = "hi";
                 }
                 return false;
             });
+            return false;
+        };
+        this.isDone = () => {
+            if (this.test === "hi") {
+                return true;
+            }
             return false;
         };
         this.isGameOver = () => {
@@ -346,6 +356,7 @@ class PlayingView extends View {
         this.totalScore = 0;
         this.frameIndex = 0;
         this.timer = new Timer;
+        this.test = "";
     }
     removeItemFromScoringObjects(item) {
         const index = this.obstacles.indexOf(item);

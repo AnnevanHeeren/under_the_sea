@@ -17,10 +17,10 @@ class PlayingView extends View {
     // Current frame number
     private frameIndex: number;
 
+    private test: string;
+
     public constructor(canvas: HTMLCanvasElement) {
         super(canvas);
-
-        
 
         // Set the player on the canvas (TODO: in the middle row)
         this.player = new Player(this.canvas);
@@ -35,6 +35,8 @@ class PlayingView extends View {
         this.frameIndex = 0;
 
         this.timer = new Timer;
+
+        this.test = "";
     }
 
     public draw = () => {
@@ -135,18 +137,38 @@ class PlayingView extends View {
     }
 
     /**
-     * 
+     *
      */
-    public isDone = (): boolean => {
-        this.obstacles.forEach(obstacle => {
-            if (this.player.collidesWith(obstacle) === true && obstacle.getName() === "shark") {
-                console.log("caught shark");
-                return true; 
+    public isDone2 = (): boolean => {
+        this.obstacles.some(obstacle => {
+            if (this.player.collidesWith(obstacle) && obstacle.getName() === "shark") {
+                console.log("caught shark"); 
+                this.test = "hi";
             }
             return false;
         });
         return false;
     }
+
+    /**
+     * Checks if it's done
+     */
+    public isDone = (): boolean => {
+        if (this.test === "hi") {
+            return true;
+        }
+        return false;
+    }
+    // public isDone = () => {
+    //     for (let i = 0; i < this.obstacles.length; i++) {
+    //         if (this.player.collidesWith(obstacle) && this.obstacle.getName() === "shark") {
+    //             console.log("caught shark"); 
+    //             return true; 
+    //     }}
+
+    //     return false
+    // }
+    
 
     public isGameOver = (): boolean => {
         return this.totalScore < 0;

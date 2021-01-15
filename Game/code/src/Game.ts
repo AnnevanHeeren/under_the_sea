@@ -36,6 +36,8 @@ class Game {
 
         this.move();
 
+        this.view[this.currentView].isDone2()
+
         if (this.view[this.currentView].isDone()) {
             this.currentView++;
             console.log("plus currentview");
@@ -70,7 +72,7 @@ class Game {
 
 
     /**
-     * move
+     * Move the items on the canvas
      */
     public move() {
         this.view[this.currentView].move();

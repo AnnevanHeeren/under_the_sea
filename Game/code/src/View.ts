@@ -13,6 +13,10 @@ abstract class View {
         return false;
     }
 
+    public isDone2 = (): boolean => {
+        return false;
+    }
+
     public isGameOver = (): boolean => {
         return false;
     }
