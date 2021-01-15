@@ -68,7 +68,7 @@ class Game {
     constructor(canvas) {
         this.step = () => {
             this.move();
-            this.view[this.currentView].isDone2();
+            this.view[this.currentView].isCollisionWithShark();
             if (this.view[this.currentView].isDone()) {
                 this.currentView++;
                 console.log("plus currentview");
@@ -117,7 +117,7 @@ class View {
         this.isDone = () => {
             return false;
         };
-        this.isDone2 = () => {
+        this.isCollisionWithShark = () => {
             return false;
         };
         this.isGameOver = () => {
@@ -332,18 +332,18 @@ class PlayingView extends View {
                 this.obstacles.push(new Fish(this.canvas));
             }
         };
-        this.isDone2 = () => {
+        this.isCollisionWithShark = () => {
             this.obstacles.some(obstacle => {
                 if (this.player.collidesWith(obstacle) && obstacle.getName() === "shark") {
                     console.log("caught shark");
-                    this.test = "hi";
+                    this.collisionWithShark = "yes";
                 }
                 return false;
             });
             return false;
         };
         this.isDone = () => {
-            if (this.test === "hi") {
+            if (this.collisionWithShark === "yes") {
                 return true;
             }
             return false;
@@ -356,7 +356,7 @@ class PlayingView extends View {
         this.totalScore = 0;
         this.frameIndex = 0;
         this.timer = new Timer;
-        this.test = "";
+        this.collisionWithShark = "";
     }
     removeItemFromScoringObjects(item) {
         const index = this.obstacles.indexOf(item);

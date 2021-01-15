@@ -13,7 +13,7 @@ abstract class View {
         return false;
     }
 
-    public isDone2 = (): boolean => {
+    public isCollisionWithShark = (): boolean => {
         return false;
     }
 

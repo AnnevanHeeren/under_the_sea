@@ -36,7 +36,7 @@ class Game {
 
         this.move();
 
-        this.view[this.currentView].isDone2()
+        this.view[this.currentView].isCollisionWithShark()
 
         if (this.view[this.currentView].isDone()) {
             this.currentView++;

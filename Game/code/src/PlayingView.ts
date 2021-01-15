@@ -17,7 +17,7 @@ class PlayingView extends View {
     // Current frame number
     private frameIndex: number;
 
-    private test: string;
+    private collisionWithShark: string;
 
     public constructor(canvas: HTMLCanvasElement) {
         super(canvas);
@@ -36,7 +36,7 @@ class PlayingView extends View {
 
         this.timer = new Timer;
 
-        this.test = "";
+        this.collisionWithShark = "";
     }
 
     public draw = () => {
@@ -139,11 +139,11 @@ class PlayingView extends View {
     /**
      *
      */
-    public isDone2 = (): boolean => {
+    public isCollisionWithShark = (): boolean => {
         this.obstacles.some(obstacle => {
             if (this.player.collidesWith(obstacle) && obstacle.getName() === "shark") {
                 console.log("caught shark"); 
-                this.test = "hi";
+                this.collisionWithShark = "yes";
             }
             return false;
         });
@@ -154,7 +154,7 @@ class PlayingView extends View {
      * Checks if it's done
      */
     public isDone = (): boolean => {
-        if (this.test === "hi") {
+        if (this.collisionWithShark === "yes") {
             return true;
         }
         return false;
