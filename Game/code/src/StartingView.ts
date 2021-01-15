@@ -1,8 +1,19 @@
 /// <reference path="View.ts" />
 
 class StartingView extends View {
+
+    public button: HTMLImageElement;
+    
+    private buttonClicked: boolean;
+
     public constructor(canvas: HTMLCanvasElement) {
         super(canvas);
+
+        // add an mouse event
+        document.addEventListener("click", this.mouseHandler);
+
+        this.button = this.loadNewImage("assets/images/button.png");
+        this.buttonClicked = false;
     }
 
     public draw = (ctx : CanvasRenderingContext2D) => {
@@ -33,11 +44,33 @@ class StartingView extends View {
         ctx.drawImage(this.loadNewImage("assets/images/player.gif"), 1250, 350);
     }
 
+
+    /**
+     * 
+     */
     public isDone = (): boolean => {
-        if (this.keyListener.isKeyDown(KeyListener.KEY_S)) {
-            return true;
+        if (this.mouseHandler()) {
+            
+        }
+        return false;
+    }
+
+    /**
+    * Method to handle the mouse event
+    * @param {MouseEvent} event - mouse event
+    */
+    public mouseHandler = (event: MouseEvent) => {
+        console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
+
+        if (
+            event.clientX >= 965 &&
+            event.clientX < 1285 + this.button.width &&
+            event.clientY >= 320 &&
+            event.clientY <= 420 + this.button.height
+        ){
+            console.log("clicked");
+            this.isDone() === true;
         }
 
-        return false;
     }
 }

@@ -136,17 +136,6 @@ class GameoverView extends View {
             this.writeTextToCanvas(ctx, "Game Over!", this.canvas.width / 2, 80, 32, "#985629");
             this.writeTextToCanvas(ctx, "Your total score went below 0!", this.canvas.width / 2, 160, 24, "#985629");
         };
-        this.mouseHandler = (event) => {
-            console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
-            if (event.clientX >= 965 &&
-                event.clientX < 1285 + this.button.width &&
-                event.clientY >= 320 &&
-                event.clientY <= 420 + this.button.height) {
-                console.log("button clicked");
-                new Game(document.getElementById('canvas'));
-            }
-        };
-        document.addEventListener("click", this.mouseHandler);
         this.button = this.loadNewImage("assets/images/button.png");
     }
 }
@@ -392,11 +381,23 @@ class StartingView extends View {
             ctx.drawImage(this.loadNewImage("assets/images/player.gif"), 1250, 350);
         };
         this.isDone = () => {
-            if (this.keyListener.isKeyDown(KeyListener.KEY_S)) {
-                return true;
+            if (this.mouseHandler) {
             }
             return false;
         };
+        this.mouseHandler = (event) => {
+            console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
+            if (event.clientX >= 965 &&
+                event.clientX < 1285 + this.button.width &&
+                event.clientY >= 320 &&
+                event.clientY <= 420 + this.button.height) {
+                console.log("clicked");
+                this.isDone() === true;
+            }
+        };
+        document.addEventListener("click", this.mouseHandler);
+        this.button = this.loadNewImage("assets/images/button.png");
+        this.buttonClicked = false;
     }
 }
 class Timer {
