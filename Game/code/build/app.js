@@ -128,7 +128,7 @@ class View {
         return img;
     }
     writeTextToCanvas(ctx, text, xCoordinate, yCoordinate, fontSize = 20, color = "red", alignment = "center") {
-        ctx.font = `${fontSize}px sans-serif`;
+        ctx.font = `${fontSize}px consolas`;
         ctx.fillStyle = color;
         ctx.textAlign = alignment;
         ctx.fillText(text, xCoordinate, yCoordinate);
@@ -143,7 +143,7 @@ class GameoverView extends View {
             this.writeTextToCanvas(ctx, "Your total score went below 0!", this.canvas.width / 2, 160, 24, "#985629");
             this.writeTextToCanvas(ctx, "Press the space button to try again", this.canvas.width / 2, 240, 24, "#985629");
             ctx.drawImage(this.loadNewImage("assets/images/fish.png"), 200, 200);
-            ctx.drawImage(this.loadNewImage("assets/images/shark.png"), 800, 250);
+            ctx.drawImage(this.loadNewImage("assets/images/image.png"), 800, 250);
         };
         this.reload = () => {
             if (this.keyListener.isKeyDown(KeyListener.KEY_SPACE)) {
@@ -432,7 +432,7 @@ class Timer {
         }, 1000);
     }
     writeTextToCanvas(ctx, text, xCoordinate, yCoordinate, fontSize = 20, color = "red", alignment = "center") {
-        ctx.font = `${fontSize}px sans-serif`;
+        ctx.font = `${fontSize}px consolas`;
         ctx.fillStyle = color;
         ctx.textAlign = alignment;
         ctx.fillText(text, xCoordinate, yCoordinate);

@@ -23,7 +23,7 @@ class GameoverView extends View {
         this.writeTextToCanvas(ctx, "Press the space button to try again", this.canvas.width / 2, 240, 24, "#985629");
 
         ctx.drawImage(this.loadNewImage("assets/images/fish.png"), 200, 200);
-        ctx.drawImage(this.loadNewImage("assets/images/shark.png"), 800, 250);
+        ctx.drawImage(this.loadNewImage("assets/images/image.png"), 800, 250);
     }
 
     /**

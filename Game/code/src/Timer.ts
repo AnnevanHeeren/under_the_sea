@@ -32,7 +32,7 @@ class Timer {
     color: string = "red",
     alignment: CanvasTextAlign = "center"
 ) {
-    ctx.font = `${fontSize}px sans-serif`;
+    ctx.font = `${fontSize}px consolas`;
     ctx.fillStyle = color;
     ctx.textAlign = alignment;
     ctx.fillText(text, xCoordinate, yCoordinate);
