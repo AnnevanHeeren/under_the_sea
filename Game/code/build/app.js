@@ -79,9 +79,6 @@ class Game {
             if (this.view[this.currentView].reload()) {
                 location.reload();
             }
-            if (this.view[this.currentView].buttonAnswer()) {
-                this.currentView = 1;
-            }
             this.draw();
             requestAnimationFrame(this.step);
         };
@@ -128,12 +125,6 @@ class View {
         };
         this.reload = () => {
             return false;
-        };
-        this.buttonAnswer = () => {
-            return false;
-        };
-        this.answerCheck = () => {
-            return "false";
         };
         this.draw = (ctx) => { };
         this.move = () => { };
@@ -343,7 +334,7 @@ class PlayingView extends View {
         };
         this.isCollisionWithShark = () => {
             this.obstacles.some(obstacle => {
-                if (this.player.collidesWith(obstacle) && obstacle.getName() === "shark") {
+                if (this.player.collidesWith(obstacle) && obstacle.getName() === "shark" && this.totalScore >= 10) {
                     console.log("caught shark");
                     this.collisionWithShark = "yes";
                 }
@@ -386,36 +377,8 @@ class QuestionView extends View {
             this.writeTextToCanvas(ctx, "YES", (this.canvas.width / 4) * 1.45, 370, 32, "#985629");
             this.writeTextToCanvas(ctx, "NO", (this.canvas.width / 4) * 2.45, 370, 32, "#985629");
         };
-        this.answerCheck = () => {
-            if (this.answer === this.playerAnswer) {
-                console.log("player answer correct");
-                return "true";
-            }
-            else if (this.answer !== this.playerAnswer) {
-                console.log("player answer incorrect");
-                return "false";
-            }
-            return "false";
-        };
-        this.buttonAnswer = () => {
-            if (this.keyListener.isKeyDown(KeyListener.KEY_Y)) {
-                console.log("key Y");
-                this.playerAnswer = "Yes";
-                if (this.answerCheck() === "true") {
-                    return true;
-                }
-            }
-            else if (this.keyListener.isKeyDown(KeyListener.KEY_N))
-                console.log("key N");
-            this.playerAnswer = "No";
-            if (this.answerCheck() !== "true") {
-                return false;
-            }
-            return false;
-        };
         this.question = "";
         this.question2 = "";
-        this.playerAnswer = "";
         this.createQuestion();
     }
     createQuestion() {
@@ -423,12 +386,10 @@ class QuestionView extends View {
         if (random === 1) {
             this.question = "Hi! Would you like to make the level easier? If so I can do this for you!";
             this.question2 = "I just need your full name and birthday! Will you do that for me?";
-            this.answer = "No";
         }
         if (random === 2) {
             this.question = "Helo Im donald trump";
             this.question2 = "";
-            this.answer = "Yes";
         }
     }
     randomInteger(min, max) {
@@ -455,7 +416,7 @@ class Spikes extends Obstacle {
     constructor(canvas) {
         super(canvas);
         this.image = this.loadNewImage("assets/images/rotatedspike.png");
-        this.points = -2;
+        this.points = -100;
         this.name = "spikes";
     }
 }

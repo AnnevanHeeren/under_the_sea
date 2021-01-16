@@ -25,13 +25,6 @@ abstract class View {
         return false;
     }
 
-    public buttonAnswer = (): boolean => {
-        return false;
-    }
-
-    public answerCheck = () => {
-       return "false";
-    }
 
     /**
      * Empty so we can overwrite this with subclasses

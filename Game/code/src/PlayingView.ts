@@ -141,7 +141,7 @@ class PlayingView extends View {
      */
     public isCollisionWithShark = (): boolean => {
         this.obstacles.some(obstacle => {
-            if (this.player.collidesWith(obstacle) && obstacle.getName() === "shark") {
+            if (this.player.collidesWith(obstacle) && obstacle.getName() === "shark" && this.totalScore >= 10) {
                 console.log("caught shark"); 
                 this.collisionWithShark = "yes";
             }

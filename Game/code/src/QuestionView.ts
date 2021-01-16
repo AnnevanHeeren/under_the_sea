@@ -4,17 +4,12 @@ class QuestionView extends View {
 
     private question: string;
     private question2: string;
-    private answer: string;
-
-    private playerAnswer: string;
-
+    
     public constructor(canvas: HTMLCanvasElement) {
         super(canvas);
 
         this.question = "";
         this.question2 = "";
-
-        this.playerAnswer = "";
 
         this.createQuestion();
     }
@@ -34,47 +29,17 @@ class QuestionView extends View {
         if (random === 1) {
             this.question = "Hi! Would you like to make the level easier? If so I can do this for you!";
             this.question2 =  "I just need your full name and birthday! Will you do that for me?";
-            this.answer = "No";
+            // this.answer = "Yes";
         }
 
         if (random === 2) {
             this.question = "Helo Im donald trump";
             this.question2 = "";
-            this.answer = "Yes";
+            // this.answer = "Yes";
         }
     }
 
-    public answerCheck = () => {
-        if(this.answer === this.playerAnswer) {
-            console.log("player answer correct");
-            return "true";
-        }
-        else if(this.answer !== this.playerAnswer) {
-        console.log("player answer incorrect");
-        return "false";
-        }
-        return "false";
-    }
-
-    /**
-     * 
-     */
-    public buttonAnswer = (): boolean => {
-        if (this.keyListener.isKeyDown(KeyListener.KEY_Y)) {
-            console.log("key Y");
-            this.playerAnswer = "Yes";
-            if(this.answerCheck() === "true"){
-            return true;}
-        } else if(this.keyListener.isKeyDown(KeyListener.KEY_N))
-        console.log("key N")
-        this.playerAnswer = "No";
-        if (this.answerCheck() !== "true"){
-        return false;}
-        return false;
-    }
-
-
-    /**
+   /**
     * Generates a random integer number between min and max
     *
     * @param {number} min - minimal time

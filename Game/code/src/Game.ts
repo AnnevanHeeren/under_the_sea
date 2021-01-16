@@ -53,10 +53,6 @@ class Game {
             location.reload();
         }
 
-        if(this.view[this.currentView].buttonAnswer()) {
-            this.currentView = 1;
-        }
-
         this.draw();
         
         // The user must hit F5 to reload the game
