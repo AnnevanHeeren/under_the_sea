@@ -70,7 +70,7 @@ abstract class View {
         xCoordinate: number,
         yCoordinate: number,
         fontSize: number = 20,
-        color: string = "red",
+        color: string = "#2d327c",
         alignment: CanvasTextAlign = "center",
     ) {
         ctx.font = `${fontSize}px consolas`;

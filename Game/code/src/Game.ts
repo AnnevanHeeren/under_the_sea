@@ -59,9 +59,9 @@ class Game {
 
         this.view[this.currentView].checkUserInput();
 
-        // if (this.view[this.currentView].isTip()) {
-        //     console.log("wgt")
-        // }
+        if (this.view[this.currentView].isTip()) {
+            this.currentView = 5;
+        }
 
 
         
@@ -105,7 +105,7 @@ class Game {
         xCoordinate: number,
         yCoordinate: number,
         fontSize: number = 20,
-        color: string = "red",
+        color: string = "#2d327c",
         alignment: CanvasTextAlign = "center"
     ) {
         ctx.font = `${fontSize}px sans-serif`;

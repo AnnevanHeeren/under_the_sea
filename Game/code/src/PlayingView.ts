@@ -68,7 +68,7 @@ class PlayingView extends View {
         // Clear the entire canvas
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.writeTextToCanvas(ctx, "Tip: win the game!", this.canvas.width / 2, 50, 24, "#985629");
+        this.writeTextToCanvas(ctx, "Tip: win the game!", this.canvas.width / 2, 50, 24, "#2d327c");
 
         this.drawScore(ctx);
 
@@ -93,7 +93,7 @@ class PlayingView extends View {
      * @param ctx 
      */
     private drawScore = (ctx: CanvasRenderingContext2D) => {
-        this.writeTextToCanvas(ctx, `Score: ${this.totalScore}`, 130, 50, 26, "black");
+        this.writeTextToCanvas(ctx, `Score: ${this.totalScore}`, 130, 50, 26, "#2d327c");
     }
 
     private createObstacle = () => {

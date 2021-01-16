@@ -81,6 +81,9 @@ class Game {
             }
             this.draw();
             this.view[this.currentView].checkUserInput();
+            if (this.view[this.currentView].isTip()) {
+                this.currentView = 5;
+            }
             requestAnimationFrame(this.step);
         };
         this.canvas = canvas;
@@ -103,7 +106,7 @@ class Game {
     move() {
         this.view[this.currentView].move();
     }
-    writeTextToCanvas(ctx, text, xCoordinate, yCoordinate, fontSize = 20, color = "red", alignment = "center") {
+    writeTextToCanvas(ctx, text, xCoordinate, yCoordinate, fontSize = 20, color = "#2d327c", alignment = "center") {
         ctx.font = `${fontSize}px sans-serif`;
         ctx.fillStyle = color;
         ctx.textAlign = alignment;
@@ -144,7 +147,7 @@ class View {
         img.src = source;
         return img;
     }
-    writeTextToCanvas(ctx, text, xCoordinate, yCoordinate, fontSize = 20, color = "red", alignment = "center") {
+    writeTextToCanvas(ctx, text, xCoordinate, yCoordinate, fontSize = 20, color = "#2d327c", alignment = "center") {
         ctx.font = `${fontSize}px consolas`;
         ctx.fillStyle = color;
         ctx.textAlign = alignment;
@@ -156,9 +159,9 @@ class GameoverView extends View {
         super(canvas);
         this.draw = (ctx) => {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.writeTextToCanvas(ctx, "Game Over!", this.canvas.width / 2, 80, 32, "#985629");
-            this.writeTextToCanvas(ctx, "Your total score went below 0!", this.canvas.width / 2, 160, 24, "#985629");
-            this.writeTextToCanvas(ctx, "Press the space button to try again", this.canvas.width / 2, 240, 24, "#985629");
+            this.writeTextToCanvas(ctx, "Game Over!", this.canvas.width / 2, 80, 32, "#2d327c");
+            this.writeTextToCanvas(ctx, "Your total score went below 0!", this.canvas.width / 2, 160, 24, "#2d327c");
+            this.writeTextToCanvas(ctx, "Press the space button to try again", this.canvas.width / 2, 240, 24, "#2d327c");
             ctx.drawImage(this.loadNewImage("assets/images/fish.png"), 200, 200);
             ctx.drawImage(this.loadNewImage("assets/images/image.png"), 800, 250);
             ctx.drawImage(this.loadNewImage("assets/images/seaweed(1).png"), 250, 560);
@@ -309,7 +312,7 @@ class PlayingView extends View {
             console.log(this.totalScore);
             const ctx = this.canvas.getContext('2d');
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.writeTextToCanvas(ctx, "Tip: win the game!", this.canvas.width / 2, 50, 24, "#985629");
+            this.writeTextToCanvas(ctx, "Tip: win the game!", this.canvas.width / 2, 50, 24, "#2d327c");
             this.drawScore(ctx);
             this.player.draw(ctx);
             this.timer.draw(ctx);
@@ -323,7 +326,7 @@ class PlayingView extends View {
             });
         };
         this.drawScore = (ctx) => {
-            this.writeTextToCanvas(ctx, `Score: ${this.totalScore}`, 130, 50, 26, "black");
+            this.writeTextToCanvas(ctx, `Score: ${this.totalScore}`, 130, 50, 26, "#2d327c");
         };
         this.createObstacle = () => {
             const random = this.randomInteger(1, 4);
@@ -380,10 +383,13 @@ class QuestionView extends View {
         super(canvas);
         this.draw = (ctx) => {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.writeTextToCanvas(ctx, `${this.question}`, this.canvas.width / 2, 110, 32, "#985629");
-            this.writeTextToCanvas(ctx, `${this.question2}`, this.canvas.width / 2, 150, 32, "#985629");
-            this.writeTextToCanvas(ctx, "YES", (this.canvas.width / 4) * 1.45, 370, 32, "#985629");
-            this.writeTextToCanvas(ctx, "NO", (this.canvas.width / 4) * 2.45, 370, 32, "#985629");
+            this.writeTextToCanvas(ctx, `${this.question}`, this.canvas.width / 2, 110, 32, "#2d327c");
+            this.writeTextToCanvas(ctx, `${this.question2}`, this.canvas.width / 2, 150, 32, "#2d327c");
+            this.writeTextToCanvas(ctx, "Press Y for YES", (this.canvas.width / 4) * 1.45, 370, 32, "#2d327c");
+            this.writeTextToCanvas(ctx, "Press N for NO", (this.canvas.width / 4) * 2.45, 370, 32, "#2d327c");
+            ctx.drawImage(this.loadNewImage("assets/images/seaweed(1).png"), 250, 560);
+            ctx.drawImage(this.loadNewImage("assets/images/seaweed(1).png"), 850, 560);
+            ctx.drawImage(this.loadNewImage("assets/images/seaweed(1).png"), 950, 560);
         };
         this.checkUserInput = () => {
             if (this.keyListener.isKeyDown(KeyListener.KEY_Y)) {
@@ -452,19 +458,19 @@ class StartingView extends View {
         super(canvas);
         this.draw = (ctx) => {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.writeTextToCanvas(ctx, "Under the Sea", this.canvas.width / 2, 80, 52, "#985629");
+            this.writeTextToCanvas(ctx, "Under the Sea", this.canvas.width / 2, 80, 52, "#2d327c");
             ctx.drawImage(this.loadNewImage("assets/images/goodFish.png"), 200, 200);
-            this.writeTextToCanvas(ctx, " +10 score", 380, 260, 24, "#985629");
+            this.writeTextToCanvas(ctx, " +10 score", 380, 260, 24, "#2d327c");
             ctx.drawImage(this.loadNewImage("assets/images/goodShark.png"), 200, 420);
-            this.writeTextToCanvas(ctx, "= +2 score", 380, 480, 24, "#985629");
+            this.writeTextToCanvas(ctx, " +2 score", 380, 480, 24, "#2d327c");
             ctx.drawImage(this.loadNewImage("assets/images/resizedRock.png"), 600, 200);
-            this.writeTextToCanvas(ctx, " -5 score", 760, 260, 24, "#985629");
+            this.writeTextToCanvas(ctx, " -5 score", 760, 260, 24, "#2d327c");
             ctx.drawImage(this.loadNewImage("assets/images/rotatedspike.png"), 600, 420);
-            this.writeTextToCanvas(ctx, "     = Game Over!", 760, 480, 24, "#985629");
+            this.writeTextToCanvas(ctx, "     = Game Over!", 760, 480, 24, "#2d327c");
             ctx.drawImage(this.loadNewImage("assets/images/button.png"), 950, 300);
-            this.writeTextToCanvas(ctx, " START!", 1128, 372, 24, "#3486B8");
+            this.writeTextToCanvas(ctx, " START!", 1128, 372, 24, "#2d327c");
             ctx.drawImage(this.loadNewImage("assets/images/player.gif"), 1250, 350);
-            this.writeTextToCanvas(ctx, "Score a 100 points and then catch a shark to win the game!", this.canvas.width / 2, 600, 24, "#985629");
+            this.writeTextToCanvas(ctx, "Score a 100 points and then catch a shark to win the game!", this.canvas.width / 2, 600, 24, "#2d327c");
         };
         this.isDone = () => {
             if (this.buttonClicked > 0) {
@@ -514,7 +520,21 @@ class TipView extends View {
         super(canvas);
         this.draw = (ctx) => {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.writeTextToCanvas(ctx, "TIPS SCREEN", (this.canvas.width / 4) * 1.45, 370, 32, "#985629");
+            this.writeTextToCanvas(ctx, "Wrong Answer | Game Over", (this.canvas.width / 2), 150, 32, "#2d327c");
+            this.writeTextToCanvas(ctx, "THIS IS NOT SAFE", (this.canvas.width / 2), 200, 32, "#2d327c");
+            this.writeTextToCanvas(ctx, "Never share your personal details with strangers or a game on the internet,", (this.canvas.width / 2), 350, 32, "#2d327c");
+            this.writeTextToCanvas(ctx, "it's none of their business!", (this.canvas.width / 2), 390, 32, "#2d327c");
+            this.writeTextToCanvas(ctx, "press the space bar to reload", (this.canvas.width / 2), 450, 25, "#2d327c");
+            ctx.drawImage(this.loadNewImage("assets/images/fish.png"), 200, 160);
+            ctx.drawImage(this.loadNewImage("assets/images/seaweed(1).png"), 250, 560);
+            ctx.drawImage(this.loadNewImage("assets/images/goodFish.png"), 1100, 120);
+        };
+        this.reload = () => {
+            if (this.keyListener.isKeyDown(KeyListener.KEY_SPACE)) {
+                console.log("key space");
+                return true;
+            }
+            return false;
         };
     }
 }
@@ -523,7 +543,10 @@ class WinningView extends View {
         super(canvas);
         this.draw = (ctx) => {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.writeTextToCanvas(ctx, "winning SCREEN", (this.canvas.width / 4) * 1.45, 370, 32, "#985629");
+            ctx.drawImage(this.loadNewImage("assets/images/sky.jpg"), -100, -80);
+            this.writeTextToCanvas(ctx, "Congratulations! You brought foxy to the beach!", (this.canvas.width / 4) * 2.45, 250, 32, "#2d327c");
+            ctx.drawImage(this.loadNewImage("assets/images/beach.png"), 0, 220);
+            ctx.drawImage(this.loadNewImage("assets/images/playerMirrored.gif"), 220, 495);
         };
     }
 }
