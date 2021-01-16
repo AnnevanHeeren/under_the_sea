@@ -47,7 +47,7 @@ class StartingView extends View {
 
         this.writeTextToCanvas(ctx, "All icons taken from www.flaticon.com" ,180, 700, 16, "#2d327c");
 
-        this.writeTextToCanvas(ctx, "Press X to turn music on/off" ,480, 700, 16, "#2d327c");
+        this.writeTextToCanvas(ctx, "Press X to turn music on" ,480, 700, 16, "#2d327c");
     }
 
 
