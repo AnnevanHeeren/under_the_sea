@@ -383,12 +383,14 @@ class QuestionView extends View {
         super(canvas);
         this.draw = (ctx) => {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.writeTextToCanvas(ctx, `${this.question}`, this.canvas.width / 2, 110, 32, "#2d327c");
-            this.writeTextToCanvas(ctx, `${this.question2}`, this.canvas.width / 2, 150, 32, "#2d327c");
+            this.writeTextToCanvas(ctx, `${this.question}`, this.canvas.width / 2, 150, 32, "#2d327c");
+            this.writeTextToCanvas(ctx, `${this.question2}`, this.canvas.width / 2, 190, 32, "#2d327c");
             this.writeTextToCanvas(ctx, "Press Y for YES", (this.canvas.width / 4) * 1.45, 370, 32, "#2d327c");
             this.writeTextToCanvas(ctx, "Press N for NO", (this.canvas.width / 4) * 2.45, 370, 32, "#2d327c");
             ctx.drawImage(this.loadNewImage("assets/images/seaweed(1).png"), 250, 560);
             ctx.drawImage(this.loadNewImage("assets/images/seaweed(1).png"), 850, 560);
+            ctx.drawImage(this.loadNewImage("assets/images/goodFish.png"), 900, 580);
+            ctx.drawImage(this.loadNewImage("assets/images/resizedFish.png"), 200, 400);
             ctx.drawImage(this.loadNewImage("assets/images/seaweed(1).png"), 950, 560);
         };
         this.checkUserInput = () => {
@@ -470,7 +472,8 @@ class StartingView extends View {
             ctx.drawImage(this.loadNewImage("assets/images/button.png"), 950, 300);
             this.writeTextToCanvas(ctx, " START!", 1128, 372, 24, "#2d327c");
             ctx.drawImage(this.loadNewImage("assets/images/player.gif"), 1250, 350);
-            this.writeTextToCanvas(ctx, "Score a 100 points and then catch a shark to win the game!", this.canvas.width / 2, 600, 24, "#2d327c");
+            this.writeTextToCanvas(ctx, "Score a 100 points and then catch a shark to win the game!", this.canvas.width / 2, 160, 24, "#2d327c");
+            this.writeTextToCanvas(ctx, "All icons taken from www.flaticon.com", 180, 700, 16, "#2d327c");
         };
         this.isDone = () => {
             if (this.buttonClicked > 0) {
@@ -527,6 +530,7 @@ class TipView extends View {
             this.writeTextToCanvas(ctx, "press the space bar to reload", (this.canvas.width / 2), 450, 25, "#2d327c");
             ctx.drawImage(this.loadNewImage("assets/images/fish.png"), 200, 160);
             ctx.drawImage(this.loadNewImage("assets/images/seaweed(1).png"), 250, 560);
+            ctx.drawImage(this.loadNewImage("assets/images/anchor.png"), 950, 560);
             ctx.drawImage(this.loadNewImage("assets/images/goodFish.png"), 1100, 120);
         };
         this.reload = () => {

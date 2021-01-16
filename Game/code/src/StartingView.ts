@@ -43,7 +43,9 @@ class StartingView extends View {
 
         ctx.drawImage(this.loadNewImage("assets/images/player.gif"), 1250, 350);
 
-        this.writeTextToCanvas(ctx, "Score a 100 points and then catch a shark to win the game!",this.canvas.width / 2, 600, 24, "#2d327c");
+        this.writeTextToCanvas(ctx, "Score a 100 points and then catch a shark to win the game!",this.canvas.width / 2, 160, 24, "#2d327c");
+
+        this.writeTextToCanvas(ctx, "All icons taken from www.flaticon.com" ,180, 700, 16, "#2d327c");
     }
 
 

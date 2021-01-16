@@ -19,6 +19,7 @@ public draw = (ctx: CanvasRenderingContext2D) => {
 
     ctx.drawImage(this.loadNewImage("assets/images/fish.png"), 200, 160);
     ctx.drawImage(this.loadNewImage("assets/images/seaweed(1).png"), 250, 560);
+    ctx.drawImage(this.loadNewImage("assets/images/anchor.png"), 950, 560);
     ctx.drawImage(this.loadNewImage("assets/images/goodFish.png"), 1100, 120);
 }
 
