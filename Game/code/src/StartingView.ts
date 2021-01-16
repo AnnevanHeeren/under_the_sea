@@ -27,7 +27,7 @@ class StartingView extends View {
 
         ctx.drawImage(this.loadNewImage("assets/images/goodShark.png"), 200, 420);
 
-        this.writeTextToCanvas(ctx, "= Question!", 380, 480, 24, "#985629");
+        this.writeTextToCanvas(ctx, "= +2 score", 380, 480, 24, "#985629");
 
         ctx.drawImage(this.loadNewImage("assets/images/resizedRock.png"), 600, 200);
 
@@ -35,13 +35,15 @@ class StartingView extends View {
 
         ctx.drawImage(this.loadNewImage("assets/images/rotatedspike.png"), 600, 420);
 
-        this.writeTextToCanvas(ctx, " -2 score", 760, 480, 24, "#985629");
+        this.writeTextToCanvas(ctx, "     = Game Over!", 760, 480, 24, "#985629");
 
         ctx.drawImage(this.loadNewImage("assets/images/button.png"), 950, 300);
 
         this.writeTextToCanvas(ctx, " START!", 1128, 372, 24, "#3486B8");
 
         ctx.drawImage(this.loadNewImage("assets/images/player.gif"), 1250, 350);
+
+        this.writeTextToCanvas(ctx, "Score a 100 points and then catch a shark to win the game!",this.canvas.width / 2, 600, 24, "#985629");
     }
 
 

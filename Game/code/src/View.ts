@@ -25,6 +25,14 @@ abstract class View {
         return false;
     }
 
+    public checkUserInput = () => {
+        
+    }
+
+    public isTip = () => {
+        return false;
+    }
+
 
     /**
      * Empty so we can overwrite this with subclasses

@@ -33,7 +33,7 @@ class Obstacle {
             this.positionY = this.bottomLane;
         }
         this.positionX = 1500;
-        this.speed = 5;
+        this.speed = 10;
     }
     move() {
         this.positionX -= this.speed;
@@ -74,12 +74,13 @@ class Game {
                 console.log("plus currentview");
             }
             if (this.view[this.currentView].isGameOver()) {
-                this.currentView = 3;
+                this.currentView = 4;
             }
             if (this.view[this.currentView].reload()) {
                 location.reload();
             }
             this.draw();
+            this.view[this.currentView].checkUserInput();
             requestAnimationFrame(this.step);
         };
         this.canvas = canvas;
@@ -90,7 +91,9 @@ class Game {
         this.view.push(new StartingView(this.canvas));
         this.view.push(new PlayingView(this.canvas));
         this.view.push(new QuestionView(this.canvas));
+        this.view.push(new WinningView(this.canvas));
         this.view.push(new GameoverView(this.canvas));
+        this.view.push(new TipView(this.canvas));
         this.step();
     }
     draw() {
@@ -124,6 +127,11 @@ class View {
             return false;
         };
         this.reload = () => {
+            return false;
+        };
+        this.checkUserInput = () => {
+        };
+        this.isTip = () => {
             return false;
         };
         this.draw = (ctx) => { };
@@ -285,7 +293,7 @@ class PlayingView extends View {
         super(canvas);
         this.draw = () => {
             this.frameIndex++;
-            if (this.frameIndex % 100 === 0 && this.totalScore >= 0) {
+            if (this.frameIndex % 40 === 0 && this.totalScore >= 0) {
                 this.createObstacle();
             }
             this.player.move();
@@ -354,7 +362,7 @@ class PlayingView extends View {
         };
         this.player = new Player(this.canvas);
         this.obstacles = [];
-        this.totalScore = 0;
+        this.totalScore = 10;
         this.frameIndex = 0;
         this.timer = new Timer;
         this.collisionWithShark = "";
@@ -377,19 +385,38 @@ class QuestionView extends View {
             this.writeTextToCanvas(ctx, "YES", (this.canvas.width / 4) * 1.45, 370, 32, "#985629");
             this.writeTextToCanvas(ctx, "NO", (this.canvas.width / 4) * 2.45, 370, 32, "#985629");
         };
+        this.checkUserInput = () => {
+            if (this.keyListener.isKeyDown(KeyListener.KEY_Y)) {
+                this.answer = "Yes";
+                console.log("Yes");
+            }
+            if (this.keyListener.isKeyDown(KeyListener.KEY_N)) {
+                this.answer = "No";
+                console.log(this.answer);
+            }
+        };
+        this.isDone = () => {
+            if (this.answer === "No") {
+                return true;
+            }
+            return false;
+        };
+        this.isTip = () => {
+            if (this.answer === "Yes") {
+                return true;
+            }
+            return false;
+        };
         this.question = "";
         this.question2 = "";
+        this.answer = "";
         this.createQuestion();
     }
     createQuestion() {
         const random = this.randomInteger(1, 1);
         if (random === 1) {
-            this.question = "Hi! Would you like to make the level easier? If so I can do this for you!";
-            this.question2 = "I just need your full name and birthday! Will you do that for me?";
-        }
-        if (random === 2) {
-            this.question = "Helo Im donald trump";
-            this.question2 = "";
+            this.question = "Hi there! Can you send us all your personal details? Then we can send you a prize!";
+            this.question2 = "I just need your full name, age and adress! Will you do that for me?";
         }
     }
     randomInteger(min, max) {
@@ -408,7 +435,7 @@ class Shark extends Obstacle {
     constructor(canvas) {
         super(canvas);
         this.image = this.loadNewImage("assets/images/goodShark.png");
-        this.points = 0;
+        this.points = 2;
         this.name = "shark";
     }
 }
@@ -429,14 +456,15 @@ class StartingView extends View {
             ctx.drawImage(this.loadNewImage("assets/images/goodFish.png"), 200, 200);
             this.writeTextToCanvas(ctx, " +10 score", 380, 260, 24, "#985629");
             ctx.drawImage(this.loadNewImage("assets/images/goodShark.png"), 200, 420);
-            this.writeTextToCanvas(ctx, "= Question!", 380, 480, 24, "#985629");
+            this.writeTextToCanvas(ctx, "= +2 score", 380, 480, 24, "#985629");
             ctx.drawImage(this.loadNewImage("assets/images/resizedRock.png"), 600, 200);
             this.writeTextToCanvas(ctx, " -5 score", 760, 260, 24, "#985629");
             ctx.drawImage(this.loadNewImage("assets/images/rotatedspike.png"), 600, 420);
-            this.writeTextToCanvas(ctx, " -2 score", 760, 480, 24, "#985629");
+            this.writeTextToCanvas(ctx, "     = Game Over!", 760, 480, 24, "#985629");
             ctx.drawImage(this.loadNewImage("assets/images/button.png"), 950, 300);
             this.writeTextToCanvas(ctx, " START!", 1128, 372, 24, "#3486B8");
             ctx.drawImage(this.loadNewImage("assets/images/player.gif"), 1250, 350);
+            this.writeTextToCanvas(ctx, "Score a 100 points and then catch a shark to win the game!", this.canvas.width / 2, 600, 24, "#985629");
         };
         this.isDone = () => {
             if (this.buttonClicked > 0) {
@@ -479,6 +507,24 @@ class Timer {
         ctx.fillStyle = color;
         ctx.textAlign = alignment;
         ctx.fillText(text, xCoordinate, yCoordinate);
+    }
+}
+class TipView extends View {
+    constructor(canvas) {
+        super(canvas);
+        this.draw = (ctx) => {
+            ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.writeTextToCanvas(ctx, "TIPS SCREEN", (this.canvas.width / 4) * 1.45, 370, 32, "#985629");
+        };
+    }
+}
+class WinningView extends View {
+    constructor(canvas) {
+        super(canvas);
+        this.draw = (ctx) => {
+            ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.writeTextToCanvas(ctx, "winning SCREEN", (this.canvas.width / 4) * 1.45, 370, 32, "#985629");
+        };
     }
 }
 console.log("Javascript is working!");

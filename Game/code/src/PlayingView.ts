@@ -29,7 +29,7 @@ class PlayingView extends View {
         this.obstacles = [];
 
         // Score is zero at the start
-        this.totalScore = 0;
+        this.totalScore = 10;
 
         // FrameIndex is also zero at the start
         this.frameIndex = 0;
@@ -43,7 +43,7 @@ class PlayingView extends View {
         
         this.frameIndex++;
 
-        if (this.frameIndex % 100 === 0 && this.totalScore >= 0) {
+        if (this.frameIndex % 40 === 0 && this.totalScore >= 0) {
             this.createObstacle();
         }
         

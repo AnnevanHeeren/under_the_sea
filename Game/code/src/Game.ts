@@ -22,7 +22,9 @@ class Game {
         this.view.push(new StartingView(this.canvas));
         this.view.push(new PlayingView(this.canvas));
         this.view.push(new QuestionView(this.canvas));
+        this.view.push(new WinningView(this.canvas));
         this.view.push(new GameoverView(this.canvas));
+        this.view.push(new TipView(this.canvas));
 
         this.step();
     }
@@ -46,14 +48,23 @@ class Game {
 
         if(this.view[this.currentView].isGameOver()) {
             //console.log("game over");
-            this.currentView = 3;
+            this.currentView = 4;
         }
 
         if (this.view[this.currentView].reload()) {
             location.reload();
         }
 
-        this.draw();
+         this.draw();
+
+        this.view[this.currentView].checkUserInput();
+
+        // if (this.view[this.currentView].isTip()) {
+        //     console.log("wgt")
+        // }
+
+
+        
         
         // The user must hit F5 to reload the game
         requestAnimationFrame(this.step);

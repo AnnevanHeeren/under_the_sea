@@ -41,7 +41,7 @@ class Obstacle {
         }
 
         this.positionX = 1500;
-        this.speed = 5;
+        this.speed = 10;
     }
 
     /**

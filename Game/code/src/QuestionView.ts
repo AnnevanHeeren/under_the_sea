@@ -4,12 +4,16 @@ class QuestionView extends View {
 
     private question: string;
     private question2: string;
+
+    private answer: string;
     
     public constructor(canvas: HTMLCanvasElement) {
         super(canvas);
 
         this.question = "";
         this.question2 = "";
+
+        this.answer = "";
 
         this.createQuestion();
     }
@@ -27,16 +31,44 @@ class QuestionView extends View {
     private createQuestion() {
         const random = this.randomInteger(1, 1);
         if (random === 1) {
-            this.question = "Hi! Would you like to make the level easier? If so I can do this for you!";
-            this.question2 =  "I just need your full name and birthday! Will you do that for me?";
+            this.question = "Hi there! Can you send us all your personal details? Then we can send you a prize!";
+            this.question2 =  "I just need your full name, age and adress! Will you do that for me?";
             // this.answer = "Yes";
         }
 
-        if (random === 2) {
-            this.question = "Helo Im donald trump";
-            this.question2 = "";
-            // this.answer = "Yes";
+        // if (random === 2) {
+        //     this.question = "Helo Im donald trump";
+        //     this.question2 = "";
+        //     // this.answer = "Yes";
+        // }
+    }
+
+    public checkUserInput = () => {
+        if (this.keyListener.isKeyDown(KeyListener.KEY_Y)) {
+            this.answer = "Yes";
+            console.log("Yes");
+            
         }
+
+        if (this.keyListener.isKeyDown(KeyListener.KEY_N)) {
+            this.answer = "No";
+            console.log(this.answer);
+        }
+
+    }
+
+    public isDone = () => {
+        if (this.answer === "No") {
+            return true;
+        }
+        return false;
+    }
+
+    public isTip = () => {
+       if (this.answer === "Yes") {
+           return true;
+       }
+       return false;
     }
 
    /**
