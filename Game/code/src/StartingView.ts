@@ -46,6 +46,8 @@ class StartingView extends View {
         this.writeTextToCanvas(ctx, "Score a 100 points and then catch a shark to win the game!",this.canvas.width / 2, 160, 24, "#2d327c");
 
         this.writeTextToCanvas(ctx, "All icons taken from www.flaticon.com" ,180, 700, 16, "#2d327c");
+
+        this.writeTextToCanvas(ctx, "Press X to turn music on/off" ,480, 700, 16, "#2d327c");
     }
 
 

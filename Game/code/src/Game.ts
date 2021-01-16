@@ -27,6 +27,7 @@ class Game {
         this.view.push(new TipView(this.canvas));
 
         this.step();
+
     }
 
     /**
@@ -35,6 +36,8 @@ class Game {
      * caused by javascript scoping behaviour.
      */
     step = () => {
+
+        this.view[this.currentView].music();
 
         this.move();
 

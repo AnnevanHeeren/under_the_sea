@@ -3,7 +3,12 @@ abstract class View {
     protected canvas: HTMLCanvasElement;
     protected keyListener: KeyListener;
 
+    protected audio : HTMLAudioElement;
+
     public constructor(canvas: HTMLCanvasElement) {
+
+        this.audio = new Audio("assets/audio/song.mp3");
+
         this.canvas = canvas;
 
         this.keyListener = new KeyListener;
@@ -78,4 +83,23 @@ abstract class View {
         ctx.textAlign = alignment;
         ctx.fillText(text, xCoordinate, yCoordinate);
     }
+
+    /**
+     * 
+     */
+    public music = () => {
+        if (this.keyListener.isKeyDown(KeyListener.KEY_X)) {
+            this.playAudio();
+            console.log("play audio");
+        }
+    }
+
+    /**
+     * 
+     */
+    public playAudio = ()=> {
+        this.audio.play();
+      
+    }
+
 }
