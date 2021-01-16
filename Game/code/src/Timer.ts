@@ -10,8 +10,8 @@ class Timer {
     }
 
     public draw = (ctx: CanvasRenderingContext2D) => {
-        if(this.counter === 1){this.writeTextToCanvas(ctx, `Time: ${this.counter} second`, 1200, 50, 26, "black");}
-        if(this.counter > 1){this.writeTextToCanvas(ctx, `Time: ${this.counter} seconds`, 1200, 50, 26, "black");}
+        if(this.counter === 1){this.writeTextToCanvas(ctx, `Time: ${this.counter} second`, 1200, 50, 26, "#2d327c");}
+        if(this.counter > 1){this.writeTextToCanvas(ctx, `Time: ${this.counter} seconds`, 1200, 50, 26, "#2d327c");}
     }
 
         /**
@@ -29,7 +29,7 @@ class Timer {
     xCoordinate: number,
     yCoordinate: number,
     fontSize: number = 20,
-    color: string = "red",
+    color: string = "#2d327c",
     alignment: CanvasTextAlign = "center"
 ) {
     ctx.font = `${fontSize}px consolas`;

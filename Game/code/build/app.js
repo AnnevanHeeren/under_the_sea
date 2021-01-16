@@ -345,7 +345,7 @@ class PlayingView extends View {
         };
         this.isCollisionWithShark = () => {
             this.obstacles.some(obstacle => {
-                if (this.player.collidesWith(obstacle) && obstacle.getName() === "shark" && this.totalScore >= 10) {
+                if (this.player.collidesWith(obstacle) && obstacle.getName() === "shark" && this.totalScore >= 100) {
                     console.log("caught shark");
                     this.collisionWithShark = "yes";
                 }
@@ -365,7 +365,7 @@ class PlayingView extends View {
         };
         this.player = new Player(this.canvas);
         this.obstacles = [];
-        this.totalScore = 10;
+        this.totalScore = 0;
         this.frameIndex = 0;
         this.timer = new Timer;
         this.collisionWithShark = "";
@@ -501,17 +501,17 @@ class Timer {
         this.counter = counter;
         this.draw = (ctx) => {
             if (this.counter === 1) {
-                this.writeTextToCanvas(ctx, `Time: ${this.counter} second`, 1200, 50, 26, "black");
+                this.writeTextToCanvas(ctx, `Time: ${this.counter} second`, 1200, 50, 26, "#2d327c");
             }
             if (this.counter > 1) {
-                this.writeTextToCanvas(ctx, `Time: ${this.counter} seconds`, 1200, 50, 26, "black");
+                this.writeTextToCanvas(ctx, `Time: ${this.counter} seconds`, 1200, 50, 26, "#2d327c");
             }
         };
         let intervalId = setInterval(() => {
             this.counter = this.counter + 1;
         }, 1000);
     }
-    writeTextToCanvas(ctx, text, xCoordinate, yCoordinate, fontSize = 20, color = "red", alignment = "center") {
+    writeTextToCanvas(ctx, text, xCoordinate, yCoordinate, fontSize = 20, color = "#2d327c", alignment = "center") {
         ctx.font = `${fontSize}px consolas`;
         ctx.fillStyle = color;
         ctx.textAlign = alignment;

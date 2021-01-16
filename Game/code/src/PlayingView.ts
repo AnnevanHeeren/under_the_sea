@@ -29,7 +29,7 @@ class PlayingView extends View {
         this.obstacles = [];
 
         // Score is zero at the start
-        this.totalScore = 10;
+        this.totalScore = 0;
 
         // FrameIndex is also zero at the start
         this.frameIndex = 0;
@@ -141,7 +141,7 @@ class PlayingView extends View {
      */
     public isCollisionWithShark = (): boolean => {
         this.obstacles.some(obstacle => {
-            if (this.player.collidesWith(obstacle) && obstacle.getName() === "shark" && this.totalScore >= 10) {
+            if (this.player.collidesWith(obstacle) && obstacle.getName() === "shark" && this.totalScore >= 100) {
                 console.log("caught shark"); 
                 this.collisionWithShark = "yes";
             }
