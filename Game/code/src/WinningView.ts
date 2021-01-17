@@ -16,6 +16,7 @@ class WinningView extends View {
         ctx.drawImage(this.loadNewImage("assets/images/sky.jpg"), -100, -80);
 
         this.writeTextToCanvas(ctx, "Congratulations! You brought foxy to the beach!", (this.canvas.width/4)*2.45, 250, 32, "#2d327c");
+        this.writeTextToCanvas(ctx, "(and you kept your personal details safe, well done!)", (this.canvas.width/4)*2.45, 290, 32, "#2d327c");
 
         ctx.drawImage(this.loadNewImage("assets/images/beach.png"), 0, 220);
 
