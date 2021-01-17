@@ -5,6 +5,8 @@ abstract class View {
 
     protected audio : HTMLAudioElement;
 
+
+
     public constructor(canvas: HTMLCanvasElement) {
 
         this.audio = new Audio("assets/audio/song.mp3");
@@ -12,6 +14,7 @@ abstract class View {
         this.canvas = canvas;
 
         this.keyListener = new KeyListener;
+
     }
 
     public isDone = (): boolean => {
@@ -42,7 +45,9 @@ abstract class View {
     /**
      * Empty so we can overwrite this with subclasses
      */
-    public draw = (ctx: CanvasRenderingContext2D) => {}
+    public draw = (ctx: CanvasRenderingContext2D) => {
+
+    }
 
     /**
      * Empty so we can overwrite this with subclasses

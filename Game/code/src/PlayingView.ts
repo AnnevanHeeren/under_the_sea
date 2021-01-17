@@ -12,12 +12,14 @@ class PlayingView extends View {
     private totalScore: number;
 
     // The timer which displays seconds
-    private timer: Timer;
+    // private timer: Timer;
 
     // Current frame number
     private frameIndex: number;
 
     private collisionWithShark: string;
+
+
 
     public constructor(canvas: HTMLCanvasElement) {
         super(canvas);
@@ -33,8 +35,6 @@ class PlayingView extends View {
 
         // FrameIndex is also zero at the start
         this.frameIndex = 0;
-
-        this.timer = new Timer;
 
         this.collisionWithShark = "";
     }
@@ -72,9 +72,9 @@ class PlayingView extends View {
 
         this.drawScore(ctx);
 
-        this.player.draw(ctx);
 
-        this.timer.draw(ctx);
+
+        this.player.draw(ctx);
 
         this.obstacles.forEach(obstacle => {
             obstacle.draw(ctx);

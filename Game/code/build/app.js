@@ -87,6 +87,16 @@ class Game {
             }
             requestAnimationFrame(this.step);
         };
+        this.drawTimer = (ctx) => {
+            if (this.currentView === 1) {
+                if (this.counter === 1) {
+                    this.writeTextToCanvas(ctx, `Time: ${this.counter} second`, 1200, 50, 26, "#2d327c");
+                }
+                if (this.counter > 1) {
+                    this.writeTextToCanvas(ctx, `Time: ${this.counter} seconds`, 1200, 50, 26, "#2d327c");
+                }
+            }
+        };
         this.canvas = canvas;
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
@@ -99,10 +109,17 @@ class Game {
         this.view.push(new GameoverView(this.canvas));
         this.view.push(new TipView(this.canvas));
         this.step();
+        this.counter = 1;
+        let intervalId = setInterval(() => {
+            if (this.currentView === 1) {
+                this.counter = this.counter + 1;
+            }
+        }, 1000);
     }
     draw() {
         const ctx = this.canvas.getContext('2d');
         this.view[this.currentView].draw(ctx);
+        this.drawTimer(ctx);
     }
     move() {
         this.view[this.currentView].move();
@@ -138,7 +155,8 @@ class View {
         this.isTip = () => {
             return false;
         };
-        this.draw = (ctx) => { };
+        this.draw = (ctx) => {
+        };
         this.move = () => { };
         this.music = () => {
             if (this.keyListener.isKeyDown(KeyListener.KEY_X)) {
@@ -326,7 +344,6 @@ class PlayingView extends View {
             this.writeTextToCanvas(ctx, "Tip: win the game!", this.canvas.width / 2, 50, 24, "#2d327c");
             this.drawScore(ctx);
             this.player.draw(ctx);
-            this.timer.draw(ctx);
             this.obstacles.forEach(obstacle => {
                 obstacle.draw(ctx);
             });
@@ -378,7 +395,6 @@ class PlayingView extends View {
         this.obstacles = [];
         this.totalScore = 0;
         this.frameIndex = 0;
-        this.timer = new Timer;
         this.collisionWithShark = "";
     }
     removeItemFromScoringObjects(item) {
@@ -506,28 +522,6 @@ class StartingView extends View {
         document.addEventListener("click", this.mouseHandler);
         this.button = this.loadNewImage("assets/images/button.png");
         this.buttonClicked = 0;
-    }
-}
-class Timer {
-    constructor(counter = 1) {
-        this.counter = counter;
-        this.draw = (ctx) => {
-            if (this.counter === 1) {
-                this.writeTextToCanvas(ctx, `Time: ${this.counter} second`, 1200, 50, 26, "#2d327c");
-            }
-            if (this.counter > 1) {
-                this.writeTextToCanvas(ctx, `Time: ${this.counter} seconds`, 1200, 50, 26, "#2d327c");
-            }
-        };
-        let intervalId = setInterval(() => {
-            this.counter = this.counter + 1;
-        }, 1000);
-    }
-    writeTextToCanvas(ctx, text, xCoordinate, yCoordinate, fontSize = 20, color = "#2d327c", alignment = "center") {
-        ctx.font = `${fontSize}px consolas`;
-        ctx.fillStyle = color;
-        ctx.textAlign = alignment;
-        ctx.fillText(text, xCoordinate, yCoordinate);
     }
 }
 class TipView extends View {

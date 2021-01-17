@@ -6,7 +6,9 @@ class Game {
     // The screen which should be displayed
     private view: View[];
 
-    private currentView: number;
+    public currentView: number;
+
+    public counter: number;
 
     public constructor(canvas: HTMLElement) {
         this.canvas = <HTMLCanvasElement>canvas;
@@ -28,6 +30,13 @@ class Game {
 
         this.step();
 
+        this.counter = 1;
+
+
+        let intervalId = setInterval(() => {
+            if(this.currentView === 1){
+                this.counter = this.counter + 1;}
+        }, 1000)
     }
 
     /**
@@ -83,6 +92,16 @@ class Game {
 
         //console.log("drawing view");
         this.view[this.currentView].draw(ctx);
+
+        this.drawTimer(ctx);
+
+    }
+
+    public drawTimer = (ctx: CanvasRenderingContext2D) => {
+        if(this.currentView === 1){
+        if(this.counter === 1){this.writeTextToCanvas(ctx, `Time: ${this.counter} second`, 1200, 50, 26, "#2d327c");}
+        if(this.counter > 1){this.writeTextToCanvas(ctx, `Time: ${this.counter} seconds`, 1200, 50, 26, "#2d327c");}
+        }
     }
 
 
