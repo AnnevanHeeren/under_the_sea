@@ -18,11 +18,6 @@ class Player {
     private positionY: number;
     private positionX: number;
     
-    // Not sure about these 3 properties yet!
-    private hearts: number;
-    private score: number;
-    private bubble: number;
-    
     public constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
 
@@ -50,8 +45,6 @@ class Player {
         if (this.keyListener.isKeyDown(KeyListener.KEY_DOWN) && this.positionY !== this.bottomLane) {
             this.positionY = this.bottomLane;
         }
-
-        //console.log(this.positionY);
     }
     
     /**
@@ -79,7 +72,6 @@ class Player {
             ) {
             return true;
         }
-
         return false;
     }
 

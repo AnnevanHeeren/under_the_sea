@@ -1,14 +1,15 @@
 /// <reference path="View.ts" />
 
 class WinningView extends View {
-    //empty
 
     public constructor(canvas : HTMLCanvasElement) {
-        super(canvas) 
-
-        
+        super(canvas);
     }
 
+    /**
+     * draws winning screen
+     * @param ctx 
+     */
     public draw = (ctx: CanvasRenderingContext2D) => {
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 

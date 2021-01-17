@@ -2,9 +2,12 @@
 
 class QuestionView extends View {
 
+    //fist line of question
     private question: string;
+    //second line of question so it fits on canvas
     private question2: string;
 
+    //answer given by user
     private answer: string;
     
     public constructor(canvas: HTMLCanvasElement) {
@@ -15,9 +18,14 @@ class QuestionView extends View {
 
         this.answer = "";
 
+        //creates question on screen
         this.createQuestion();
     }
 
+    /**
+     * draws question and images on screen
+     * @param ctx 
+     */
     public draw = (ctx: CanvasRenderingContext2D) => {
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -34,6 +42,7 @@ class QuestionView extends View {
         ctx.drawImage(this.loadNewImage("assets/images/seaweed(1).png"), 950, 560);
     }
 
+    //generates question
     private createQuestion() {
         const random = this.randomInteger(1, 1);
         if (random === 1) {
@@ -41,19 +50,15 @@ class QuestionView extends View {
             this.question2 =  "I just need your full name, age and adress! Will you do that for me?";
             // this.answer = "Yes";
         }
-
-        // if (random === 2) {
-        //     this.question = "Helo Im donald trump";
-        //     this.question2 = "";
-        //     // this.answer = "Yes";
-        // }
     }
 
+    /**
+     * Records user input
+     */
     public checkUserInput = () => {
         if (this.keyListener.isKeyDown(KeyListener.KEY_Y)) {
             this.answer = "Yes";
             console.log("Yes");
-            
         }
 
         if (this.keyListener.isKeyDown(KeyListener.KEY_N)) {
@@ -63,6 +68,9 @@ class QuestionView extends View {
 
     }
 
+    /**
+     * Checks if answer is right to progress to win screen
+     */
     public isDone = () => {
         if (this.answer === "No") {
             return true;
@@ -70,6 +78,9 @@ class QuestionView extends View {
         return false;
     }
 
+    /**
+     * checks if answer is wrong to progress to tip screen
+     */
     public isTip = () => {
        if (this.answer === "Yes") {
            return true;
@@ -79,7 +90,6 @@ class QuestionView extends View {
 
    /**
     * Generates a random integer number between min and max
-    *
     * @param {number} min - minimal time
     * @param {number} max - maximal time
     */

@@ -29,6 +29,7 @@ class Obstacle {
         this.middleLane = this.canvas.height / 2;
         this.bottomLane = this.canvas.height / 4 * 3;
 
+        //spawns obstacles on random lanes
         const random = this.randomInteger(1, 3);
         if (random === 1) {
             this.positionY = this.topLane;
@@ -52,7 +53,7 @@ class Obstacle {
     }
 
     /**
-     * Render the objects
+     * Renders the objects
      * @param ctx The CanvasRenderingContext2D of the canvas to draw on
      */
     public draw(ctx: CanvasRenderingContext2D) {

@@ -11,15 +11,10 @@ class PlayingView extends View {
     // Score
     private totalScore: number;
 
-    // The timer which displays seconds
-    // private timer: Timer;
-
     // Current frame number
     private frameIndex: number;
 
     private collisionWithShark: string;
-
-
 
     public constructor(canvas: HTMLCanvasElement) {
         super(canvas);
@@ -39,6 +34,7 @@ class PlayingView extends View {
         this.collisionWithShark = "";
     }
 
+    //draws animation
     public draw = () => {
         
         this.frameIndex++;
@@ -82,6 +78,7 @@ class PlayingView extends View {
         
     }
 
+    //moves obstacles from right to left
     public move = () => {
         this.obstacles.forEach(obstacle => {
             obstacle.move();
@@ -96,6 +93,7 @@ class PlayingView extends View {
         this.writeTextToCanvas(ctx, `Score: ${this.totalScore}`, 130, 50, 26, "#2d327c");
     }
 
+    //creates obstacles in array
     private createObstacle = () => {
         const random = this.randomInteger(1, 4);
 
@@ -137,7 +135,7 @@ class PlayingView extends View {
     }
 
     /**
-     *
+     *Checks if view should go to questionView
      */
     public isCollisionWithShark = (): boolean => {
         this.obstacles.some(obstacle => {
@@ -151,7 +149,7 @@ class PlayingView extends View {
     }
 
     /**
-     * Checks if it's done
+     * Checks if view is done
      */
     public isDone = (): boolean => {
         if (this.collisionWithShark === "yes") {
@@ -160,17 +158,10 @@ class PlayingView extends View {
         }
         return false;
     }
-    // public isDone = () => {
-    //     for (let i = 0; i < this.obstacles.length; i++) {
-    //         if (this.player.collidesWith(obstacle) && this.obstacle.getName() === "shark") {
-    //             console.log("caught shark"); 
-    //             return true; 
-    //     }}
-
-    //     return false
-    // }
     
-
+    /**
+     * Checks if score is less than 0 
+     */
     public isGameOver = (): boolean => {
         return this.totalScore < 0;
     }

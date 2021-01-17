@@ -6,8 +6,10 @@ class Game {
     // The screen which should be displayed
     private view: View[];
 
+    //the view currently on screen
     public currentView: number;
 
+    //rate at which the timer goes up in seconds
     public counter: number;
 
     public constructor(canvas: HTMLElement) {
@@ -32,7 +34,7 @@ class Game {
 
         this.counter = 1;
 
-
+        //timer counting in seconds
         let intervalId = setInterval(() => {
             if(this.currentView === 1){
                 this.counter = this.counter + 1;}
@@ -46,37 +48,41 @@ class Game {
      */
     step = () => {
 
+        //plays audio
         this.view[this.currentView].music();
 
+        //moves items on screen
         this.move();
 
+        //checks if object collision is shark
         this.view[this.currentView].isCollisionWithShark()
 
+        //checks if screen should go to the next one in the array
         if (this.view[this.currentView].isDone()) {
             this.currentView++;
             console.log("plus currentview");
-        
         }
 
+        //checks if its game over
         if(this.view[this.currentView].isGameOver()) {
-            //console.log("game over");
+            console.log("game over");
             this.currentView = 4;
         }
 
+        //reloads screen
         if (this.view[this.currentView].reload()) {
             location.reload();
         }
 
          this.draw();
 
+         //checks user answer in questionView
         this.view[this.currentView].checkUserInput();
 
+        //screen goes to the false answer screen
         if (this.view[this.currentView].isTip()) {
             this.currentView = 5;
         }
-
-
-        
         
         // The user must hit F5 to reload the game
         requestAnimationFrame(this.step);
@@ -90,20 +96,24 @@ class Game {
         // Get the canvas rendering context
         const ctx = this.canvas.getContext('2d');
 
-        //console.log("drawing view");
+        //draws screen
         this.view[this.currentView].draw(ctx);
 
+        //puts timer on the playing screen
         this.drawTimer(ctx);
 
     }
 
+    /**
+     * Method to draw timer on playing screen
+     * @param ctx 
+     */
     public drawTimer = (ctx: CanvasRenderingContext2D) => {
         if(this.currentView === 1){
         if(this.counter === 1){this.writeTextToCanvas(ctx, `Time: ${this.counter} second`, 1200, 50, 26, "#2d327c");}
         if(this.counter > 1){this.writeTextToCanvas(ctx, `Time: ${this.counter} seconds`, 1200, 50, 26, "#2d327c");}
         }
     }
-
 
     /**
      * Move the items on the canvas

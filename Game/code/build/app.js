@@ -75,6 +75,7 @@ class Game {
                 console.log("plus currentview");
             }
             if (this.view[this.currentView].isGameOver()) {
+                console.log("game over");
                 this.currentView = 4;
             }
             if (this.view[this.currentView].reload()) {
@@ -157,7 +158,8 @@ class View {
         };
         this.draw = (ctx) => {
         };
-        this.move = () => { };
+        this.move = () => {
+        };
         this.music = () => {
             if (this.keyListener.isKeyDown(KeyListener.KEY_X)) {
                 this.playAudio();
@@ -189,7 +191,7 @@ class GameoverView extends View {
         this.draw = (ctx) => {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.writeTextToCanvas(ctx, "Game Over!", this.canvas.width / 2, 140, 32, "#2d327c");
-            this.writeTextToCanvas(ctx, "Press the space button to try again", this.canvas.width / 2, 240, 24, "#2d327c");
+            this.writeTextToCanvas(ctx, "Press the space bar to try again", this.canvas.width / 2, 240, 24, "#2d327c");
             ctx.drawImage(this.loadNewImage("assets/images/fish.png"), 200, 200);
             ctx.drawImage(this.loadNewImage("assets/images/image.png"), 800, 250);
             ctx.drawImage(this.loadNewImage("assets/images/seaweed(1).png"), 250, 560);

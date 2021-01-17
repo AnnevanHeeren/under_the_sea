@@ -5,10 +5,9 @@ abstract class View {
 
     protected audio : HTMLAudioElement;
 
-
-
     public constructor(canvas: HTMLCanvasElement) {
 
+        //assigns file to audio
         this.audio = new Audio("assets/audio/song.mp3");
 
         this.canvas = canvas;
@@ -52,7 +51,9 @@ abstract class View {
     /**
      * Empty so we can overwrite this with subclasses
      */
-    public move = () => {}
+    public move = () => {
+
+    }
 
     /**
     * Loads an image in such a way that the screen doesn't constantly flicker
@@ -90,7 +91,7 @@ abstract class View {
     }
 
     /**
-     * 
+     * Makes music play when X is pressed by user
      */
     public music = () => {
         if (this.keyListener.isKeyDown(KeyListener.KEY_X)) {
@@ -100,11 +101,10 @@ abstract class View {
     }
 
     /**
-     * 
+     * plays audio
      */
     public playAudio = ()=> {
         this.audio.play();
-      
     }
 
 }

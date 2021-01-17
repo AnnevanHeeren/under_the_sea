@@ -13,9 +13,15 @@ class StartingView extends View {
         document.addEventListener("click", this.mouseHandler);
 
         this.button = this.loadNewImage("assets/images/button.png");
+
+        //technically a boolean to progress to next screen
         this.buttonClicked = 0;
     }
 
+    /**
+     * Draws guide on canvas
+     * @param ctx 
+     */
     public draw = (ctx : CanvasRenderingContext2D) => {
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -60,7 +66,7 @@ class StartingView extends View {
 
 
     /**
-     * 
+     * checks if button has been clicked
      */
     public isDone = (): boolean => {
         if (this.buttonClicked > 0) {
@@ -71,6 +77,7 @@ class StartingView extends View {
 
     /**
     * Method to handle the mouse event
+    * Method to let user progress to playing screen when pressing button
     * @param {MouseEvent} event - mouse event
     */
     public mouseHandler = (event: MouseEvent) => {

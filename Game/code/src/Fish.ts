@@ -7,6 +7,5 @@ class Fish extends Obstacle {
         this.image = this.loadNewImage("assets/images/goodFish.png");
         this.points = 10;
         this.name = "fish";
-        //this.question = false;
     }
 }
