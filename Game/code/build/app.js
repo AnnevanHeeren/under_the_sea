@@ -188,8 +188,7 @@ class GameoverView extends View {
         super(canvas);
         this.draw = (ctx) => {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.writeTextToCanvas(ctx, "Game Over!", this.canvas.width / 2, 80, 32, "#2d327c");
-            this.writeTextToCanvas(ctx, "Your total score went below 0!", this.canvas.width / 2, 160, 24, "#2d327c");
+            this.writeTextToCanvas(ctx, "Game Over!", this.canvas.width / 2, 140, 32, "#2d327c");
             this.writeTextToCanvas(ctx, "Press the space button to try again", this.canvas.width / 2, 240, 24, "#2d327c");
             ctx.drawImage(this.loadNewImage("assets/images/fish.png"), 200, 200);
             ctx.drawImage(this.loadNewImage("assets/images/image.png"), 800, 250);
