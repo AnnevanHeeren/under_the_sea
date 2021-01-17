@@ -7,6 +7,7 @@ Under The Sea is a game created by four students in order to make kids aged 10-1
 
 You can play our game [here](https://annevanheeren.github.io/under_the_sea/Game/code/Index.html).
 If you want to play the game on your local machine, clone the repository and open `Game/code/Index.html`.
+We recommend playing this game on a 1920x1080 screen with a framerate of 60fps.
 
 
 # Authors
