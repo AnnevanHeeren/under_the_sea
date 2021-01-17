@@ -53,7 +53,7 @@ class StartingView extends View {
 
         this.writeTextToCanvas(ctx, "All icons taken from www.flaticon.com" ,180, 700, 16, "#2d327c");
 
-        this.writeTextToCanvas(ctx, "Press X to turn music on" ,1150, 700, 16, "#2d327c");
+        this.writeTextToCanvas(ctx, "Press X to turn music on" ,1130, 460, 16, "#2d327c");
 
         ctx.drawImage(this.loadNewImage("assets/images/keyup.png"), 200, 480);
         ctx.drawImage(this.loadNewImage("assets/images/keyleft.png"), 200, 525);
