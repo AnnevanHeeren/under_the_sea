@@ -25,17 +25,17 @@ class StartingView extends View {
 
         this.writeTextToCanvas(ctx, " +10 score", 380, 260, 24, "#2d327c");
 
-        ctx.drawImage(this.loadNewImage("assets/images/goodShark.png"), 200, 420);
+        ctx.drawImage(this.loadNewImage("assets/images/goodShark.png"), 200, 322);
 
-        this.writeTextToCanvas(ctx, " +2 score", 380, 480, 24, "#2d327c");
+        this.writeTextToCanvas(ctx, " +2 score", 380, 380, 24, "#2d327c");
 
         ctx.drawImage(this.loadNewImage("assets/images/resizedRock.png"), 600, 200);
 
         this.writeTextToCanvas(ctx, " -5 score", 760, 260, 24, "#2d327c");
 
-        ctx.drawImage(this.loadNewImage("assets/images/rotatedspike.png"), 600, 420);
+        ctx.drawImage(this.loadNewImage("assets/images/rotatedspike.png"), 600, 322);
 
-        this.writeTextToCanvas(ctx, "     = Game Over!", 760, 480, 24, "#2d327c");
+        this.writeTextToCanvas(ctx, "     = Game Over!", 760, 380, 24, "#2d327c");
 
         ctx.drawImage(this.loadNewImage("assets/images/button.png"), 950, 300);
 
@@ -48,6 +48,14 @@ class StartingView extends View {
         this.writeTextToCanvas(ctx, "All icons taken from www.flaticon.com" ,180, 700, 16, "#2d327c");
 
         this.writeTextToCanvas(ctx, "Press X to turn music on" ,1150, 700, 16, "#2d327c");
+
+        ctx.drawImage(this.loadNewImage("assets/images/keyup.png"), 200, 480);
+        ctx.drawImage(this.loadNewImage("assets/images/keyleft.png"), 200, 525);
+        ctx.drawImage(this.loadNewImage("assets/images/keydown.png"), 200, 570);
+        
+        this.writeTextToCanvas(ctx, "UP", 260, 508, 24,"#2d327c", "left");
+        this.writeTextToCanvas(ctx, "MIDDLE", 260, 508+45, 24,"#2d327c", "left");
+        this.writeTextToCanvas(ctx, "DOWN", 260, 508+90, 24,"#2d327c", "left");
     }
 
 
